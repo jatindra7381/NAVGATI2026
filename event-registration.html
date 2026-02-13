@@ -388,7 +388,7 @@
             align-items: center;
         }
 
-        .popup-box {
+        .popup {
             background: var(--glass-bg);
             backdrop-filter: blur(14px);
             padding: 40px;
@@ -397,6 +397,7 @@
             animation: fadeIn 0.4s ease forwards;
             border: 1px solid var(--divider-color);
         }
+
 
         @keyframes slideUp {
             from {
@@ -609,6 +610,57 @@
             margin-top: 2px;
             flex-shrink: 0;
         }
+
+        .reg-card {
+            margin: 20px 0;
+            padding: 18px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: left;
+        }
+
+        .card-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .card-row strong {
+            color: white;
+            letter-spacing: 0.08em;
+        }
+
+
+        /* Registration Copy UI */
+        .reg-number-row {
+            align-items: center;
+        }
+
+
+
+
+
+        .reg-note {
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+
+
+        /* Improve glass effect for export */
+        #registrationCard {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow:
+                0 30px 80px rgba(31, 182, 255, 0.25),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 
@@ -617,6 +669,9 @@
 <div class="loading-overlay" id="loadingOverlay">
     <div class="spinner"></div>
 </div>
+
+
+
 
 <body>
     <div class="page">
@@ -636,6 +691,7 @@
                     <li>Team size must strictly follow the selected event rules mentioned during registration.</li>
                     <li>Once submitted, registration details cannot be modified, so verify information carefully before
                         submission.</li>
+                    <li>For entry fee payment and related queries, contact only: +91 9368859898. </li>
                 </ul>
             </div>
 
@@ -698,6 +754,7 @@
         </div>
 
         <!-- POPUP -->
+        <!-- POPUP -->
         <div class="popup" id="popup">
             <div class="popup-box">
                 <div class="tick">
@@ -706,14 +763,47 @@
                     </svg>
                 </div>
 
-                <h3>Registration is booked</h3>
-                <p>NAVGATI team will contact you for further process.</p>
+                <h3>Registration Confirmed</h3>
 
-                <button class="btn" onclick="window.close()">Close</button>
+                <!-- REGISTRATION CARD -->
+                <div class="reg-card" id="registrationCard">
+
+                    <div class="card-row">
+                        <span>Team Leader</span>
+                        <strong id="cardLeader">—</strong>
+                    </div>
+
+                    <div class="card-row">
+                        <span>Event</span>
+                        <strong id="cardEvent">—</strong>
+                    </div>
+
+                    <div class="card-row">
+                        <span>Registration No</span>
+                        <strong id="cardRegNo">—</strong>
+                    </div>
+
+
+                    <p class="reg-note">
+                        Please save your registration number and keep a screenshot for future reference.<br>
+                        The NAVGATI team will contact you with further instructions.<br>
+                        Make payments only to the UPI ID provided on the Registration Page.<br>
+                        For payment-related queries, use the contact details listed on the Registration Page.
+                    </p>
+
+
+
+
+                </div>
+
+
+
+
+                <button class="btn" onclick="closePopup()">Close</button>
+
 
             </div>
         </div>
-
 
 
 
@@ -743,6 +833,24 @@
                     cursor.style.transform = "translate(-10%, -10%) scale(1)";
                 });
             });
+
+
+
+            function closePopup() {
+                const popup = document.getElementById("popup");
+                popup.style.display = "none";
+
+                // Try closing tab
+                window.open('', '_self'); // Required for some browsers
+                window.close();
+
+                // Fallback (if browser blocks close)
+                setTimeout(() => {
+                    window.location.href = "about:blank";
+                }, 300);
+            }
+
+
         </script>
 
 
@@ -796,39 +904,63 @@
 
 
             function submitForm() {
-
-                // 🔐 VALIDATE PARTICIPANTS FIRST
-                if (!validateParticipants()) {
-                    return; // ❌ STOP submission
-                }
-
                 const count = document.getElementById("participantCount").value;
                 const participants = [];
 
                 for (let i = 1; i <= count; i++) {
                     participants.push({
-                        name: document.getElementById(`pname${i}`).value.trim(),
-                        phone: document.getElementById(`pphone${i}`).value.trim(),
+                        name: document.getElementById(`pname${i}`).value,
+                        phone: document.getElementById(`pphone${i}`).value,
                         leader: i === 1
                     });
                 }
 
-                // SHOW LOADER
                 document.getElementById("loadingOverlay").style.display = "flex";
 
                 db.collection("registrations").add({
-                    collegeName: collegeName.value.trim(),
-                    collegeCity: collegeCity.value.trim(),
+                    collegeName: collegeName.value,
+                    collegeCity: collegeCity.value,
                     event: eventName.value,
                     participants,
-                    timestamp: new Date()
-                }).then(() => {
-                    setTimeout(() => {
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                })
+                    .then((docRef) => {
+
+                        // 🔢 NUMERIC-ONLY UNIQUE REG NUMBER
+                        const year = new Date().getFullYear();
+                        const eventCode = "10"; // you can map later per event
+
+                        const numericPart = docRef.id
+                            .replace(/\D/g, '')
+                            .substring(0, 6)
+                            .padEnd(6, '0');
+
+                        const registrationNumber = `${year}${eventCode}${numericPart}`;
+
+                        // SAVE reg number
+                        return db.collection("registrations")
+                            .doc(docRef.id)
+                            .update({ registrationNumber })
+                            .then(() => docRef.id);
+                    })
+                    .then((docId) => {
+                        // READ BACK from database
+                        return db.collection("registrations").doc(docId).get();
+                    })
+                    .then((docSnap) => {
+                        const data = docSnap.data();
+                        const leader = data.participants.find(p => p.leader);
+
+                        // Fill popup card from DB
+                        document.getElementById("cardLeader").innerText = leader.name;
+                        document.getElementById("cardEvent").innerText = data.event;
+                        document.getElementById("cardRegNo").innerText = data.registrationNumber;
+
                         document.getElementById("loadingOverlay").style.display = "none";
                         document.getElementById("popup").style.display = "flex";
-                    }, 1000);
-                });
+                    });
             }
+
 
 
 
@@ -994,6 +1126,12 @@
 
 
 
+
+
+
+
+
+
         </script>
 
 
@@ -1011,6 +1149,7 @@
 
 
     <div class="glass-arrow-cursor" id="glassCursor"></div>
+
 
 </body>
 
