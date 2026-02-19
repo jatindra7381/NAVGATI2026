@@ -856,7 +856,7 @@
 
 
         <script>
-            // 🔥 Firebase Config (REPLACE WITH YOUR OWN)
+            
             const firebaseConfig = {
                 apiKey: "AIzaSyBfcUk_ISZThkoAoFi9tTN0KirIj8cNvHk",
                 authDomain: "navgati-2026.firebaseapp.com",
@@ -904,7 +904,15 @@
 
 
             function submitForm() {
-                const count = document.getElementById("participantCount").value;
+
+                if (!validateParticipants()) {
+                    return;
+                }
+
+                const count = Number(document.getElementById("participantCount").value);
+                const event = eventName.value;
+                const year = new Date().getFullYear();
+
                 const participants = [];
 
                 for (let i = 1; i <= count; i++) {
@@ -920,44 +928,73 @@
                 db.collection("registrations").add({
                     collegeName: collegeName.value,
                     collegeCity: collegeCity.value,
-                    event: eventName.value,
-                    participants,
+                    event: event,
+                    participants: participants,
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 })
                     .then((docRef) => {
 
-                        // 🔢 NUMERIC-ONLY UNIQUE REG NUMBER
-                        const year = new Date().getFullYear();
-                        const eventCode = "10"; // you can map later per event
+                        // 🔐 FIREBASE UNIQUE ID
+                        const firebaseId = docRef.id;
 
-                        const numericPart = docRef.id
-                            .replace(/\D/g, '')
-                            .substring(0, 6)
-                            .padEnd(6, '0');
+                        // Convert firebase ID to numeric hash
+                        let numericHash = 0;
+                        for (let i = 0; i < firebaseId.length; i++) {
+                            numericHash += firebaseId.charCodeAt(i);
+                        }
 
-                        const registrationNumber = `${year}${eventCode}${numericPart}`;
+                        // Make fixed-length numeric part
+                        const uniquePart = String(numericHash).padStart(6, "0").slice(0, 6);
 
-                        // SAVE reg number
+                        // Optional: add event code mapping
+                        const EVENT_CODES = {
+                            "MARITIME QUIZ": "01",
+                            "PAPER PRESENTATION": "02",
+                            "IPL AUCTION": "03",
+                            "SQUID GAME": "04",
+                            "CANVAS CLASH": "05",
+                            "BALLADS OF THE BLUE": "06",
+                            "FIFA23": "07",
+                            "FASHION CHRONICLES": "08",
+                            "RHYTHM AND WAVES": "09",
+                            "CROWNED AT SEA": "10",
+                            "PITCH PERFECT": "11",
+                            "FRAMES FROM THE DEEP": "12",
+                            "FOOSBALL IRL": "13",
+                            "MIC CHECK": "14",
+                            "SHUTTER SWIRL": "15",
+                            "ARM WRESTLING": "16"
+                        };
+
+                        const eventCode = EVENT_CODES[event] || "00";
+
+                        // Final Registration Number
+                        const registrationNumber = `${year}${eventCode}${uniquePart}`;
+
+                        // Save registration number back
                         return db.collection("registrations")
                             .doc(docRef.id)
                             .update({ registrationNumber })
-                            .then(() => docRef.id);
+                            .then(() => ({
+                                registrationNumber,
+                                leader: participants[0].name,
+                                event
+                            }));
                     })
-                    .then((docId) => {
-                        // READ BACK from database
-                        return db.collection("registrations").doc(docId).get();
-                    })
-                    .then((docSnap) => {
-                        const data = docSnap.data();
-                        const leader = data.participants.find(p => p.leader);
+                    .then((result) => {
 
-                        // Fill popup card from DB
-                        document.getElementById("cardLeader").innerText = leader.name;
-                        document.getElementById("cardEvent").innerText = data.event;
-                        document.getElementById("cardRegNo").innerText = data.registrationNumber;
+                        document.getElementById("cardLeader").innerText = result.leader;
+                        document.getElementById("cardEvent").innerText = result.event;
+                        document.getElementById("cardRegNo").innerText = result.registrationNumber;
 
                         document.getElementById("loadingOverlay").style.display = "none";
                         document.getElementById("popup").style.display = "flex";
+
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                        alert("Something went wrong. Please try again.");
+                        document.getElementById("loadingOverlay").style.display = "none";
                     });
             }
 
