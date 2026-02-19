@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NAVGATI 2026 | Event Registration</title>
 
     <!-- Google Fonts -->
@@ -72,6 +73,7 @@
 
             display: flex;
             align-items: center;
+            margin-top: 0; 
         }
 
         /* Placeholder */
@@ -324,6 +326,8 @@
             transition:
                 transform 0.4s cubic-bezier(.2, .8, .2, 1),
                 box-shadow 0.4s ease;
+            
+            width: 100%;
         }
 
         /* subtle hover — same as landing */
@@ -386,9 +390,11 @@
             display: none;
             justify-content: center;
             align-items: center;
+            z-index: 1000;
+            padding: 20px;
         }
 
-        .popup {
+        .popup-box {
             background: var(--glass-bg);
             backdrop-filter: blur(14px);
             padding: 40px;
@@ -396,6 +402,8 @@
             text-align: center;
             animation: fadeIn 0.4s ease forwards;
             border: 1px solid var(--divider-color);
+            max-width: 500px;
+            width: 100%;
         }
 
 
@@ -457,6 +465,8 @@
             pointer-events: none;
             transition: all 0.3s ease;
             z-index: 10;
+            max-height: 300px;
+            overflow-y: auto;
         }
 
         .custom-select.open .select-options {
@@ -504,9 +514,9 @@
 
 
         /* Hide system cursor */
-        * {
+        /* * {
             cursor: none !important;
-        }
+        } */
 
         /* Glass arrow cursor */
         .glass-arrow-cursor {
@@ -568,6 +578,7 @@
             letter-spacing: 0.25em;
             font-size: 22px;
             margin-bottom: 28px;
+            line-height: 1.4;
         }
 
         /* INSTRUCTIONS */
@@ -587,6 +598,8 @@
             max-width: 700px;
             text-align: left;
             /* 🔑 force left alignment */
+            margin-left: auto;
+            margin-right: auto; 
         }
 
 
@@ -648,6 +661,7 @@
             font-size: 13px;
             color: var(--text-secondary);
             opacity: 0.8;
+            line-height: 1.6;
         }
 
 
@@ -1194,3 +1208,4 @@
 
 
 </html>
+
