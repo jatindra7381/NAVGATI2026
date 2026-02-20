@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1024">
     <title>NAVGATI 2026 | Event Registration</title>
 
     <!-- Google Fonts -->
@@ -943,7 +943,12 @@
                 <div class="step-line"></div>
                 <div class="step" id="step3">
                     <span class="step-num">3</span>
-                    <span class="step-label">Confirmation</span>
+                    <span class="step-label">Payment</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" id="step4">
+                    <span class="step-num">4</span>
+                    <span class="step-label">Done</span>
                 </div>
             </div>
 
@@ -1034,6 +1039,62 @@
                     <button class="btn" onclick="submitForm()">Submit Registration</button>
                 </div>
             </div>
+
+            <!-- PAYMENT SECTION -->
+            <div id="paymentSection"
+                style="display: none; animation: slideUpFade 0.8s var(--apple-curve) forwards; margin-top: 40px;">
+                <div class="participant-card" style="text-align: center; margin-top: 0;">
+                    <div class="leader">Payment Details</div>
+                    <div
+                        style="background: rgba(255,255,255,0.05); width: 220px; height: 220px; margin: 0 auto 20px; border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); overflow: hidden;">
+                        <img src="qr-code.jpg" alt="QR Code" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 24px; color: var(--text-primary);">
+                        Entry Fee: ₹<span id="paymentAmountDisplay"></span></div>
+
+                    <a id="upiPaymentBtn" href="#"
+                        style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255, 255, 255, 0.1); color: white; padding: 14px 28px; border-radius: 999px; font-weight: 600; font-size: 16px; text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.2); margin-bottom: 32px; transition: all 0.3s ease;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="2" y1="10" x2="22" y2="10"></line>
+                        </svg>
+                        Pay via UPI App
+                    </a>
+                    <p
+                        style="font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin: 0; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px;">
+                        <span>Note: Kindly complete the payment of the specified amount and send the payment
+                            confirmation
+                            screenshot mentioning your registration number (<strong id="paymentRegNoDisplay"
+                                style="color: var(--accent-blue);"></strong>) to the number</span> <strong
+                            style="color: var(--text-primary);">+919368859898</strong>
+                        <a id="waMsgBtn" href="#" target="_blank"
+                            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: rgba(37, 211, 102, 0.15); border-radius: 50%; color: #25D366; text-decoration: none; transition: all 0.3s ease;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                            </svg>
+                        </a>
+                    </p>
+                    <p style="font-size: 14px; color: #FF375F; font-weight: 600; line-height: 1.4; margin: 16px 0 0 0;">
+                        IMPORTANT: Registration is considered confirmed ONLY after manual verification of your payment.
+                        Please ensure you send the screenshot!
+                    </p>
+                    <div
+                        style="margin-top: 24px; padding: 16px; background: rgba(10, 132, 255, 0.1); border: 1px solid rgba(10, 132, 255, 0.3); border-radius: 16px; text-align: left;">
+                        <h4 style="margin: 0 0 8px 0; color: var(--accent-blue); font-size: 15px; font-weight: 600;">IMU
+                            Student Exemption</h4>
+                        <p style="font-size: 13px; color: rgba(235, 235, 245, 0.9); line-height: 1.5; margin: 0;">
+                            Students of IMU Chennai Campus (SNS and SMET) are exempt from paying the entry fee for all
+                            events, except <strong>ARM WRESTLING</strong> and <strong>SQUID GAME</strong>. Instead,
+                            please submit a copy of the Team Leader’s ID card for verification.<br><br>
+                            <span style="color: var(--text-secondary); font-size: 12px;"><em>Note: Management students
+                                    are not included in this exemption.</em></span>
+                        </p>
+                    </div>
+                </div>
+                <button class="btn" onclick="finishRegistration()">Complete Registration</button>
+            </div>
         </div>
 
         <!-- POPUP -->
@@ -1064,12 +1125,16 @@
                         <strong id="cardRegNo">—</strong>
                     </div>
 
-                    <p class="reg-note">
-                        Please save your registration number and keep a screenshot for future reference.<br>
-                        The NAVGATI team will contact you with further instructions.<br>
-                        Make payments only to the UPI ID provided on the Registration Page.<br>
-                        For payment-related queries, use the contact details listed on the Registration Page.
-                    </p>
+                    <div class="reg-note" style="text-align: left;">
+                        <ul
+                            style="padding-left: 20px; list-style-type: disc; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+                            <li>Please save your registration number and keep a screenshot for future reference.</li>
+                            <li>The NAVGATI team will contact you with further instructions.</li>
+                            <li>Make payments only to the UPI ID provided on the Registration Page.</li>
+                            <li>For payment-related queries, use the contact details listed on the Registration Page.
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <button class="btn" onclick="closePopup()">Close</button>
@@ -1273,44 +1338,74 @@
                     document.getElementById("cardRegNo").innerText = result.registrationNumber;
 
                     document.getElementById("loadingOverlay").style.display = "none";
-                    document.getElementById("popup").style.display = "flex";
+
+                    // Show payment section
+                    document.getElementById("participantsSection").style.display = "none";
+                    document.getElementById("paymentSection").style.display = "block";
+                    document.getElementById("paymentRegNoDisplay").innerText = result.registrationNumber;
+
+                    const participantCount = Number(document.getElementById("participantCount").value);
+                    const fee = calculateFee(result.event, participantCount);
+                    document.getElementById("paymentAmountDisplay").innerText = fee;
+
+                    const upiLink = `upi://pay?pa=vaibhavs05012004-1@okhdfcbank&pn=NAVGATI%20Events&am=${fee}&cu=INR`;
+                    document.getElementById("upiPaymentBtn").href = upiLink;
+
+                    // WhatsApp Message Generation
+                    const waPhone = "919368859898";
+                    const teamLeader = result.leader;
+                    const eventName = result.event;
+                    const cName = document.getElementById("collegeName").value.trim();
+                    const cCity = document.getElementById("collegeCity").value.trim();
+                    const waText = `Hello NAVGATI Team,\n\nI am sharing the payment screenshot for my registration.\n\n*Event:* ${eventName}\n*Team Leader:* ${teamLeader}\n*College Details:* ${cName}, ${cCity}\n*Registration No:* ${result.registrationNumber}\n*Fee Paid:* ₹${fee}\n\nPlease find the screenshot attached below.`;
+
+                    const waLink = `https://wa.me/${waPhone}?text=${encodeURIComponent(waText)}`;
+                    document.getElementById("waMsgBtn").href = waLink;
 
                     // Update Step 3
                     document.getElementById("step2").classList.remove("active");
                     document.getElementById("step3").classList.add("active");
-
-                    // Trigger Confetti Burst
-                    if (window.confetti) {
-                        const duration = 3000;
-                        const end = Date.now() + duration;
-
-                        (function frame() {
-                            confetti({
-                                particleCount: 5,
-                                angle: 60,
-                                spread: 55,
-                                origin: { x: 0 },
-                                colors: ['#0A84FF', '#5E5CE6', '#FF375F']
-                            });
-                            confetti({
-                                particleCount: 5,
-                                angle: 120,
-                                spread: 55,
-                                origin: { x: 1 },
-                                colors: ['#0A84FF', '#5E5CE6', '#FF375F']
-                            });
-
-                            if (Date.now() < end) {
-                                requestAnimationFrame(frame);
-                            }
-                        }());
-                    }
 
                 }).catch((error) => {
                     console.error("Error:", error);
                     showToast("Something went wrong. Please try again.");
                     document.getElementById("loadingOverlay").style.display = "none";
                 });
+            }
+
+            function finishRegistration() {
+                document.getElementById("step3").classList.remove("active");
+                document.getElementById("step4").classList.add("active");
+
+                document.getElementById("paymentSection").style.display = "none";
+                document.getElementById("popup").style.display = "flex";
+
+                // Trigger Confetti Burst
+                if (window.confetti) {
+                    const duration = 3000;
+                    const end = Date.now() + duration;
+
+                    (function frame() {
+                        confetti({
+                            particleCount: 5,
+                            angle: 60,
+                            spread: 55,
+                            origin: { x: 0 },
+                            colors: ['#0A84FF', '#5E5CE6', '#FF375F']
+                        });
+                        confetti({
+                            particleCount: 5,
+                            angle: 120,
+                            spread: 55,
+                            origin: { x: 1 },
+                            colors: ['#0A84FF', '#5E5CE6', '#FF375F']
+                        });
+
+                        if (Date.now() < end) {
+                            requestAnimationFrame(frame);
+                        }
+                    }());
+                }
             }
 
             const select = document.getElementById("eventSelect");
@@ -1364,6 +1459,49 @@
                 "SHUTTER SWIRL": { label: "SHUTTER SWIRL", min: 1, max: 1 },
                 "ARM WRESTLING": { label: "ARM WRESTLING", min: 1, max: 1 }
             };
+
+            const EVENT_FEES = {
+                "MARITIME QUIZ": [{ min: 2, max: 2, perParticipant: 150 }],
+                "PAPER PRESENTATION": [{ min: 1, max: 3, perParticipant: 150 }],
+                "IPL AUCTION": [{ min: 2, max: 2, perParticipant: 150 }],
+                "SQUID GAME": [{ min: 1, max: 1, perParticipant: 100 }],
+                "CANVAS CLASH": [{ min: 1, max: 1, perParticipant: 150 }],
+                "BALLADS OF THE BLUE": [
+                    { min: 1, max: 1, flat: 200 },
+                    { min: 2, max: 4, flat: 500 },
+                    { min: 5, max: Infinity, flat: 800 }
+                ],
+                "FIFA23": [{ min: 1, max: 1, perParticipant: 150 }],
+                "FASHION CHRONICLES": [
+                    { min: 1, max: 1, flat: 250 },
+                    { min: 2, max: 4, flat: 600 },
+                    { min: 5, max: 11, flat: 900 }
+                ],
+                "RHYTHM AND WAVES": [
+                    { min: 1, max: 1, flat: 200 },
+                    { min: 2, max: 4, flat: 500 },
+                    { min: 5, max: 16, flat: 800 }
+                ],
+                "CROWNED AT SEA": [{ min: 1, max: 1, perParticipant: 250 }],
+                "PITCH PERFECT": [{ min: 1, max: 5, perParticipant: 150 }],
+                "MIC CHECK": [{ min: 1, max: 1, perParticipant: 150 }],
+                "FRAMES FROM THE DEEP": [{ min: 1, max: 6, flat: 400 }],
+                "FUTSAL": [{ min: 6, max: 8, perParticipant: 100 }],
+                "SHUTTER SWIRL": [{ min: 1, max: 1, perParticipant: 150 }],
+                "ARM WRESTLING": [{ min: 1, max: 1, perParticipant: 250 }]
+            };
+
+            function calculateFee(eventName, count) {
+                const rules = EVENT_FEES[eventName];
+                if (!rules) return 0;
+
+                for (const rule of rules) {
+                    if (count >= rule.min && count <= rule.max) {
+                        return rule.flat ? rule.flat : (rule.perParticipant * count);
+                    }
+                }
+                return 0;
+            }
 
             function validateInitialForm() {
                 const collegeName = document.getElementById("collegeName").value.trim();
