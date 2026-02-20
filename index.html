@@ -3,85 +3,144 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NAVGATI 2026 | From Deck to Destiny</title>
+    <meta name="description"
+        content="Join NAVGATI 2026, the premier maritime festival at IMU Chennai Campus, for events, presentations, and competitions." />
 
     <!-- Google Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&family=Manrope:wght@500;600;700&display=swap"
         rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
-
 
     <style>
-        /* ============================= */
-        /* PREMIUM TYPOGRAPHY – WHY ATTEND */
-        /* ============================= */
-
-        .about-glass .about-title {
-            font-family: 'Manrope', 'Poppins', sans-serif;
-            font-weight: 600;
-
-            font-size: 25px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-
-            background: linear-gradient(135deg,
-                    rgba(255, 255, 255, 0.95),
-                    rgba(200, 220, 255, 0.85));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-
-            text-shadow:
-                0 4px 18px rgba(0, 0, 0, 0.45);
-
-            margin-bottom: 32px;
+        :root {
+            --bg-primary: #0B0F14;
+            --accent-purple: #7B3FE4;
+            --accent-cyan: #1FB6FF;
+            --accent-pink: #FF4FD8;
+            --text-primary: #FFFFFF;
+            --text-secondary: #C7CCD6;
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --divider-color: rgba(255, 255, 255, 0.12);
         }
 
-        /* Body text refinement */
-        .about-glass .about-text {
+        /* Base Resets */
+        * {
+            box-sizing: border-box;
             font-family: 'Inter', system-ui, sans-serif;
-            font-weight: 400;
-
-            font-size: 16px;
-            letter-spacing: 0.035em;
-            line-height: 1.9;
-
-            color: rgba(255, 255, 255, 0.9);
-
-            text-shadow:
-                0 2px 6px rgba(0, 0, 0, 0.6);
         }
 
-        .about-glass .about-title {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
+        @media (hover: hover) and (pointer: fine) {
 
-            font-size: 23px;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-
-            color: rgba(255, 255, 255, 0.95);
-
-            text-shadow:
-                0 4px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        @media (max-width: 768px) {
-            .glass-arrow-cursor {
-                display: none;
-            }
-
-            body {
-                cursor: auto;
+            *,
+            *::before,
+            *::after {
+                cursor: none !important;
             }
         }
-
-
 
         body {
-            cursor: auto;
+            margin: 0;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
         }
 
+        /* Essential scroll-snapping added to body and sections */
+        html {
+            scroll-snap-type: y proximity;
+        }
+
+        /* Apply snap alignment to main sections */
+        .hero,
+        .about-glass,
+        .sponsors-section,
+        .events-section {
+            scroll-snap-align: start;
+        }
+
+        /* Global Background Glow */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at top, rgba(123, 63, 228, 0.35), var(--bg-primary) 60%);
+            background-size: 100vw 100vh;
+            pointer-events: none;
+        }
+
+        /* Generic Liquid Glass System for multiple elements */
+        .glass-liquid {
+            position: relative;
+            overflow: hidden;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--divider-color);
+            z-index: 1;
+        }
+
+        .glass-liquid::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.08), transparent 45%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.06), transparent 50%),
+                linear-gradient(to bottom, rgba(10, 14, 22, 0.85), rgba(18, 22, 32, 0.85));
+            filter: blur(18px);
+            animation: liquidFlow 18s ease-in-out infinite;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .glass-liquid::after {
+            content: "";
+            position: absolute;
+            inset: -60%;
+            background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.18) 45%, transparent 55%);
+            transform: translateX(-120%) rotate(8deg);
+            animation: liquidReflection 12s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 96px 14px;
+        }
+
+        .hero-card {
+            max-width: 900px;
+            width: 100%;
+            padding: 72px 48px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 -20px 40px rgba(0, 0, 0, 0.4), 0 30px 80px rgba(0, 0, 0, 0.6);
+            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        /* Typography & Headers */
         .university-header {
             display: flex;
             flex-direction: column;
@@ -89,8 +148,20 @@
             margin-bottom: 18px;
         }
 
-        .university-text {
-            text-align: center;
+        .university-header::after {
+            content: "";
+            width: 120px;
+            height: 1px;
+            margin-top: 16px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        }
+
+        .imu-logo {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 8px 24px rgba(0, 76, 113, 0.35));
         }
 
         .university-name {
@@ -109,65 +180,256 @@
             margin-top: 4px;
         }
 
-        .university-header::after {
-            content: "";
-            width: 120px;
-            height: 1px;
-            margin-top: 16px;
-            background: linear-gradient(90deg,
-                    transparent,
-                    rgba(255, 255, 255, 0.4),
-                    transparent);
+        .tagline {
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 16px;
         }
 
-
-        /* Hide default cursor */
-        body {
-            cursor: none;
+        h1,
+        .navgati-logo {
+            width: clamp(180px, 30vw, 320px);
+            height: auto;
+            margin-bottom: 32px;
+            filter: drop-shadow(0 10px 40px rgba(123, 63, 228, 0.35));
+            animation: fadeInScale 0.9s ease forwards;
         }
 
-        /* Arrow glass cursor */
-        .glass-arrow-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 18px;
-            height: 18px;
-            pointer-events: none;
-            z-index: 9999;
-
-            /* Arrow shape */
-            clip-path: polygon(0% 0%,
-                    100% 50%,
-                    60% 60%,
-                    50% 100%,
-                    40% 60%,
-                    0% 100%);
-
-            background: rgba(255, 255, 255, 0.35);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow:
-                0 0 12px rgba(31, 182, 255, 0.5),
-                inset 0 0 6px rgba(255, 255, 255, 0.6);
-
-            transform: translate(-10%, -10%);
-            transition:
-                transform 0.15s ease,
-                box-shadow 0.2s ease,
-                background 0.2s ease;
+        .subtitle {
+            max-width: 640px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+            letter-spacing: 0.8em;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* Hover state */
-        .glass-arrow-cursor.active {
-            background: rgba(255, 255, 255, 0.55);
-            box-shadow:
-                0 0 20px rgba(255, 79, 216, 0.6),
-                inset 0 0 10px rgba(255, 255, 255, 0.7);
+        .event-meta {
+            margin-bottom: 32px;
         }
 
+        .event-date {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 20px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--divider-color);
+            font-size: 13px;
+            letter-spacing: 0.12em;
+        }
+
+        /* Countdown */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .time-box {
+            min-width: 80px;
+            padding: 14px 10px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--divider-color);
+            border-radius: 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        .time-box span {
+            display: block;
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .time-box small {
+            display: block;
+            margin-top: 6px;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        /* Premium CTA */
+        .cta-premium {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 54px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(31, 182, 255, 0.85), rgba(255, 79, 216, 0.85));
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            text-decoration: none;
+            overflow: hidden;
+            box-shadow: 0 0 0 rgba(31, 182, 255, 0), 0 30px 80px rgba(31, 182, 255, 0.35);
+            animation: ctaBreath 4.5s ease-in-out infinite;
+            transition: transform 0.5s cubic-bezier(.2, .8, .2, 1), box-shadow 0.5s ease;
+        }
+
+        .cta-premium .cta-text {
+            position: relative;
+            z-index: 2;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .cta-premium .cta-shine {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.6) 40%, transparent 60%);
+            transform: translateX(-120%);
+            z-index: 1;
+        }
+
+        .cta-premium:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 25px 90px rgba(255, 79, 216, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+        }
+
+        .cta-premium:hover .cta-shine {
+            animation: shineSweep 0.9s ease forwards;
+        }
+
+        /* Contact & Location Cards */
+        .contacts-wrapper {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .contact-glass {
+            width: 80%;
+            max-width: 420px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 16px;
+            padding: 16px 26px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-decoration: none;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06), 0 16px 45px rgba(0, 0, 0, 0.45);
+            transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), box-shadow 0.35s ease, background 0.35s ease;
+        }
+
+        .contact-glass:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 26px 70px rgba(31, 182, 255, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            color: #fff;
+        }
+
+        .contact-icon.location {
+            background: linear-gradient(135deg, rgba(31, 182, 255, 0.9), rgba(255, 79, 216, 0.9));
+            box-shadow: 0 8px 22px rgba(31, 182, 255, 0.45);
+        }
+
+        .contact-icon.email {
+            background: linear-gradient(135deg, rgba(31, 182, 255, 0.95), rgba(123, 63, 228, 0.95));
+            box-shadow: 0 8px 22px rgba(31, 182, 255, 0.45);
+        }
+
+        .contact-icon.insta {
+            background: linear-gradient(135deg, #F58529, #DD2A7B, #8134AF, #515BD4);
+            box-shadow: 0 8px 22px rgba(221, 42, 123, 0.45);
+        }
+
+        .contact-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-label {
+            font-size: 10px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 3px;
+        }
+
+        .contact-value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13.5px;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.4;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        /* About Card Section */
+        .about-glass {
+            max-width: 760px;
+            padding: 48px 48px;
+            margin: 96px auto 72px;
+            border-radius: 28px;
+            text-align: center;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), inset 0 -30px 60px rgba(0, 0, 0, 0.45), 0 40px 120px rgba(0, 0, 0, 0.6);
+        }
+
+        .about-glass * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-glass .about-title {
+            font-family: 'Manrope', 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 25px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(200, 220, 255, 0.85));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+            margin-bottom: 24px;
+        }
+
+        .about-glass .about-text {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            letter-spacing: 0.035em;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+            max-width: 640px;
+            margin: 0 auto 28px;
+        }
 
         .brochure-btn {
             display: inline-block;
@@ -176,16 +438,12 @@
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(18px);
             border: 1px solid rgba(255, 255, 255, 0.25);
-
             color: white;
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
             letter-spacing: 0.08em;
             text-decoration: none;
-
-            transition: transform 0.3s ease,
-                box-shadow 0.3s ease,
-                background 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
         }
 
         .brochure-btn:hover {
@@ -194,33 +452,200 @@
             box-shadow: 0 14px 40px rgba(31, 182, 255, 0.35);
         }
 
-        .about-section {
-            margin: 80px auto 60px;
-            max-width: 720px;
+        /* Sponsors Section */
+        .sponsors-section {
+            margin: 100px auto 60px;
             text-align: center;
         }
 
-        .about-title {
+        .sponsors-title {
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.22em;
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .sponsor-track-wrapper {
+            overflow: hidden;
+            position: relative;
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+
+        .sponsor-track {
+            display: flex;
+            gap: 28px;
+            width: max-content;
+            animation: sponsorScroll 40s linear infinite;
+        }
+
+        .sponsor-card {
+            width: 180px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06), 0 18px 50px rgba(0, 0, 0, 0.45);
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .sponsor-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .sponsor-card img {
+            max-width: 70%;
+            max-height: 60%;
+            object-fit: contain;
+            filter: brightness(0.95) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+        }
+
+        /* Events Line-up */
+        .events-section {
+            margin-top: 100px;
+            text-align: left;
+        }
+
+        .events-title {
             font-family: 'Poppins', sans-serif;
             letter-spacing: 0.12em;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            font-size: 18px;
+            text-align: center;
         }
 
-        .about-text {
+        .events-day {
+            margin-bottom: 70px;
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .day-header span {
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.18em;
+            font-size: 14px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .day-header.day2 span {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .day-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.05));
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 22px;
+        }
+
+        .event-tile {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.96);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.75), 0 0 10px rgba(255, 255, 255, 0.12);
+            cursor: none;
+            transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), box-shadow 0.35s ease, background 0.35s ease, color 0.3s ease;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 -20px 40px rgba(0, 0, 0, 0.4), 0 30px 80px rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .event-tile * {
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Ambient Glow Behind Text */
+        .event-tile::before {
+            content: "";
+            position: absolute;
+            inset: -60%;
+            background: radial-gradient(circle at var(--px, 50%) var(--py, 50%), rgba(31, 182, 255, 0.18), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .event-tile.proximity::before {
+            opacity: 1;
+        }
+
+        /* Ripple Layer */
+        .event-tile::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--rx, 50%) var(--ry, 50%), rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.12) 20%, transparent 45%);
+            opacity: 0;
+            transform: scale(0.6);
+            transition: opacity 0.4s ease, transform 0.6s cubic-bezier(.2, .8, .2, 1);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Base Internal Gradient */
+        .event-tile-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.15)), radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 60%);
+            z-index: -1;
+        }
+
+        .event-tile:hover {
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 60px rgba(31, 182, 255, 0.35);
+            color: #ffffff;
+            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.85), 0 0 16px rgba(31, 182, 255, 0.35);
+        }
+
+        .event-tile:hover::after {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        .footer-note {
+            margin-top: 48px;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
             color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 32px;
+            opacity: 0.7;
         }
 
-        .imu-logo {
-            width: 90px;
-            height: 90px;
-            object-fit: contain;
-            margin: 0 auto 16px;
-            display: block;
-            filter: drop-shadow(0 8px 24px rgba(0, 76, 113, 0.35));
-        }
-
+        /* Modal System */
         .event-modal {
             position: fixed;
             inset: 0;
@@ -230,16 +655,6 @@
             z-index: 200;
         }
 
-
-        /* Modal Container */
-        .event-modal {
-            position: fixed;
-            inset: 0;
-            display: none;
-            z-index: 200;
-        }
-
-        /* Backdrop */
         .modal-backdrop {
             position: absolute;
             inset: 0;
@@ -247,7 +662,6 @@
             backdrop-filter: blur(6px);
         }
 
-        /* Glass Card */
         .modal-card {
             position: relative;
             max-width: 640px;
@@ -257,31 +671,22 @@
             backdrop-filter: blur(20px);
             border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-
             transform: scale(0.95) translateY(20px);
             opacity: 0;
         }
-
-
 
         .event-modal.show .modal-card {
             animation: modalIn 0.35s ease forwards;
         }
 
-
-
         .event-modal.closing .modal-card {
             animation: modalOut 0.3s ease forwards;
         }
 
-
-
-
-        /* Content */
         .modal-card h2 {
-            font-family: 'Poppins';
+            font-family: 'Poppins', sans-serif;
             letter-spacing: 0.08em;
-            margin-bottom: 16px;
+            margin: 0 0 16px;
         }
 
         .modal-card p {
@@ -308,7 +713,114 @@
             font-weight: 500;
         }
 
-        /* Animations */
+        /* Glass Custom Cursor */
+        .glass-arrow-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 18px;
+            height: 18px;
+            pointer-events: none;
+            z-index: 9999;
+            clip-path: polygon(0% 0%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 100%);
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 12px rgba(31, 182, 255, 0.5), inset 0 0 6px rgba(255, 255, 255, 0.6);
+            transform: translate(-10%, -10%);
+            transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+            will-change: left, top, transform;
+        }
+
+        .glass-arrow-cursor.active {
+            background: rgba(255, 255, 255, 0.55);
+            box-shadow: 0 0 20px rgba(255, 79, 216, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+
+        /* Unified Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes liquidFlow {
+            0% {
+                transform: translateY(0%) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-6%) rotate(180deg);
+            }
+
+            100% {
+                transform: translateY(0%) rotate(360deg);
+            }
+        }
+
+        @keyframes liquidReflection {
+            to {
+                transform: translateX(120%) rotate(8deg);
+            }
+        }
+
+        @keyframes sponsorScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes ctaBreath {
+
+            0%,
+            100% {
+                box-shadow: 0 20px 60px rgba(31, 182, 255, 0.35);
+            }
+
+            50% {
+                box-shadow: 0 30px 90px rgba(255, 79, 216, 0.55);
+            }
+        }
+
+        @keyframes shineSweep {
+            to {
+                transform: translateX(120%);
+            }
+        }
+
         @keyframes modalIn {
             from {
                 opacity: 0;
@@ -328,839 +840,53 @@
             }
         }
 
-        .events-section {
-            margin-top: 100px;
-        }
-
-        .events-title {
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: 0.12em;
-            margin-bottom: 24px;
-            font-size: 18px;
-        }
-
-
-        /* iPadOS-style slider */
-        .event-slider {
-            display: flex;
-            gap: 28px;
-            overflow-x: auto;
-            padding: 40px 40px 60px;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-
-            /* Momentum scrolling */
-            -webkit-overflow-scrolling: touch;
-
-            /* Mask fade edges (premium iPad effect) */
-            mask-image: linear-gradient(to right,
-                    transparent,
-                    black 10%,
-                    black 90%,
-                    transparent);
-        }
-
-        /* Hide scrollbar (still scrollable) */
-        .event-slider::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Card base */
-        .event-card {
-            min-width: 320px;
-            padding: 28px;
-            border-radius: 22px;
-            scroll-snap-align: center;
-
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-
-            /* iPadOS depth */
-            transform-origin: center;
-            transform: scale(0.92) translateZ(0);
-            opacity: 0.65;
-
-            transition:
-                transform 0.45s cubic-bezier(.2, .8, .2, 1),
-                opacity 0.45s ease,
-                box-shadow 0.45s ease,
-                filter 0.45s ease;
-        }
-
-        /* Hover (desktop polish) */
-        .event-card:hover {
-            transform: translateY(-8px) scale(0.96);
-            box-shadow: 0 24px 60px rgba(123, 63, 228, 0.35);
-        }
-
-        /* Active / focused card */
-        .event-card.active {
-            transform: scale(1);
-            opacity: 1;
-            filter: blur(0);
-            box-shadow:
-                0 30px 80px rgba(125, 201, 238, 0.35),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-        }
-
-        .event-card {
-            will-change: transform;
-        }
-
-        .event-card h3 {
-            margin: 20px 0 0;
-            font-size: 16px;
-            letter-spacing: 0.06em;
-        }
-
-        .day-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 999px;
-            font-size: 10px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
-        }
-
-        .day-tag.day2 {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-        }
-
-        /* Event Meta */
-        .event-meta {
-            margin-bottom: 32px;
-        }
-
-        .university {
-            font-family: 'Poppins', sans-serif;
-            font-size: 12px;
-            letter-spacing: 0.08em;
-            margin-bottom: 12px;
-        }
-
-        .university span {
-            display: block;
-            font-size: 14px;
-            color: var(--text-secondary);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-        }
-
-        .event-date {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 8px 20px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--divider-color);
-            font-size: 13px;
-            letter-spacing: 0.12em;
-        }
-
-        /* Countdown */
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 40px;
-            animation: fadeIn 1s ease forwards;
-        }
-
-        .time-box {
-            min-width: 80px;
-            padding: 14px 10px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--divider-color);
-            border-radius: 14px;
-            backdrop-filter: blur(10px);
-        }
-
-        .time-box span {
-            display: block;
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            font-weight: 600;
-            background: linear-gradient(135deg,
-                    var(--accent-cyan),
-                    var(--accent-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .time-box small {
-            display: block;
-            margin-top: 6px;
-            font-size: 11px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-        }
-
-        :root {
-            --bg-primary: #0B0F14;
-            --accent-purple: #7B3FE4;
-            --accent-cyan: #1FB6FF;
-            --accent-pink: #FF4FD8;
-            --text-primary: #FFFFFF;
-            --text-secondary: #C7CCD6;
-            --glass-bg: rgba(255, 255, 255, 0.06);
-            --divider-color: rgba(255, 255, 255, 0.12);
-        }
-
-        * {
-            box-sizing: border-box;
-            font-family: 'Inter', system-ui, sans-serif;
-        }
-
-        body {
-            margin: 0;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Fixed glow background */
-        body::before {
-            content: "";
+        .sticky-register {
             position: fixed;
-            inset: 0;
-            z-index: -1;
-            background: radial-gradient(circle at top,
-                    rgba(123, 63, 228, 0.35),
-                    #0B0F14 60%);
-            background-size: 100vw 100vh;
-            background-repeat: no-repeat;
-            pointer-events: none;
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 96px 14px;
-        }
-
-        .hero-card {
-            max-width: 900px;
-            width: 100%;
-            padding: 72px 48px;
-            background: var(--glass-bg);
+            bottom: 30px;
+            right: 30px;
+            padding: 14px 28px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(31, 182, 255, 0.9), rgba(255, 79, 216, 0.9));
             backdrop-filter: blur(14px);
-            border-radius: 24px;
-            border: 1px solid var(--divider-color);
-            text-align: center;
-            animation: slideUp 0.8s ease forwards;
-        }
-
-        .tagline {
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            font-size: 12px;
-            margin-bottom: 16px;
-        }
-
-        h1 {
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
             font-family: 'Poppins', sans-serif;
-            font-size: clamp(36px, 5vw, 56px);
-            letter-spacing: 0.08em;
-            margin: 0 0 24px;
-        }
-
-        .subtitle {
-            max-width: 640px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
-            letter-spacing: 0.8em;
-
-            background: linear-gradient(135deg,
-                    var(--accent-cyan),
-                    var(--accent-pink));
-
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .cta {
-            display: inline-block;
-            padding: 16px 40px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
-            color: white;
-            font-family: 'Poppins';
             font-weight: 600;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 14px 40px rgba(255, 79, 216, 0.35);
-        }
-
-        .footer-note {
-            margin-top: 48px;
-            font-size: 12px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            opacity: 0.7;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-
-        .navgati-logo {
-            width: clamp(180px, 30vw, 320px);
-            height: auto;
-            margin-bottom: 32px;
-
-            /* subtle premium glow */
-            filter: drop-shadow(0 10px 40px rgba(123, 63, 228, 0.35));
-
-            animation: fadeInScale 0.9s ease forwards;
-        }
-
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.92);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        /* Hide system cursor everywhere */
-        *,
-        *::before,
-        *::after {
-            cursor: none !important;
-        }
-
-        @media (hover: none) and (pointer: coarse) {
-            * {
-                cursor: auto !important;
-            }
-        }
-
-        .events-day {
-            margin-bottom: 70px;
-        }
-
-        .day-header {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            margin-bottom: 30px;
-        }
-
-        .day-header span {
-            font-family: 'Poppins';
-            letter-spacing: 0.18em;
-            font-size: 14px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .day-header.day2 span {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .day-line {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(to right,
-                    rgba(255, 255, 255, 0.35),
-                    rgba(255, 255, 255, 0.05));
-        }
-
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 22px;
-        }
-
-        .event-tile {
-            padding: 20px 20px;
-            border-radius: 20px;
-
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-
-            font-family: 'Poppins';
-            font-size: 15px;
-            letter-spacing: 0.06em;
-            text-align: center;
-
-            cursor: pointer;
-            transition:
-                transform 0.35s cubic-bezier(.2, .8, .2, 1),
-                box-shadow 0.35s ease,
-                background 0.35s ease;
-        }
-
-        .event-tile:hover {
-            transform: translateY(-6px);
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 20px 60px rgba(31, 182, 255, 0.35);
-        }
-
-        /* PREMIUM CINEMATIC CTA */
-        .cta-premium {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 18px 54px;
-            border-radius: 999px;
-
-            background: linear-gradient(135deg,
-                    rgba(31, 182, 255, 0.85),
-                    rgba(255, 79, 216, 0.85));
-
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-
-            text-decoration: none;
-            overflow: hidden;
-
-            box-shadow:
-                0 0 0 rgba(31, 182, 255, 0),
-                0 30px 80px rgba(31, 182, 255, 0.35);
-
-            animation: ctaBreath 4.5s ease-in-out infinite;
-            transition:
-                transform 0.5s cubic-bezier(.2, .8, .2, 1),
-                box-shadow 0.5s ease;
-        }
-
-        /* Text */
-        .cta-premium .cta-text {
-            position: relative;
-            z-index: 2;
-            font-family: 'Poppins';
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            color: white;
-            text-transform: uppercase;
-        }
-
-        /* Light sweep */
-        .cta-premium .cta-shine {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg,
-                    transparent 20%,
-                    rgba(255, 255, 255, 0.6) 40%,
-                    transparent 60%);
-            transform: translateX(-120%);
-        }
-
-        /* Hover interaction */
-        .cta-premium:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow:
-                0 25px 90px rgba(255, 79, 216, 0.45),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.4);
-        }
-
-        .cta-premium:hover .cta-shine {
-            animation: shineSweep 0.9s ease forwards;
-        }
-
-        /* Breathing glow */
-        @keyframes ctaBreath {
-
-            0%,
-            100% {
-                box-shadow:
-                    0 20px 60px rgba(31, 182, 255, 0.35);
-            }
-
-            50% {
-                box-shadow:
-                    0 30px 90px rgba(255, 79, 216, 0.55);
-            }
-        }
-
-        /* Shine animation */
-        @keyframes shineSweep {
-            to {
-                transform: translateX(120%);
-            }
-        }
-
-        /* ============================= */
-        /* DARK GLASS LIQUID SYSTEM */
-        /* ============================= */
-
-        :root {
-            --liquid-dark: rgba(15, 20, 28, 0.85);
-            --liquid-light: rgba(255, 255, 255, 0.08);
-        }
-
-        /* Apply liquid glass to all glass components */
-        .hero-card,
-        .event-tile,
-        .modal-card,
-        .brochure-btn,
-        .cta-premium {
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* LIQUID BODY */
-        .hero-card::before,
-        .event-tile::before,
-        .modal-card::before,
-        .brochure-btn::before,
-        .cta-premium::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-
-            background:
-                radial-gradient(circle at 20% 30%,
-                    rgba(255, 255, 255, 0.08),
-                    transparent 45%),
-                radial-gradient(circle at 80% 70%,
-                    rgba(255, 255, 255, 0.06),
-                    transparent 50%),
-                linear-gradient(to bottom,
-                    rgba(10, 14, 22, 0.85),
-                    rgba(18, 22, 32, 0.85));
-
-            filter: blur(18px);
-            transform: translateY(0) rotate(0deg);
-            animation: liquidFlow 18s ease-in-out infinite;
-            z-index: 0;
-        }
-
-        /* REFLECTION BAND */
-        .hero-card::after,
-        .event-tile::after,
-        .modal-card::after,
-        .brochure-btn::after,
-        .cta-premium::after {
-            content: "";
-            position: absolute;
-            inset: -60%;
-
-            background: linear-gradient(120deg,
-                    transparent 35%,
-                    rgba(255, 255, 255, 0.18) 45%,
-                    transparent 55%);
-
-            transform: translateX(-120%) rotate(8deg);
-            animation: liquidReflection 12s linear infinite;
-            z-index: 1;
-        }
-
-        /* CONTENT ABOVE LIQUID */
-        .hero-card>*,
-        .event-tile>*,
-        .modal-card>*,
-        .brochure-btn>*,
-        .cta-premium>* {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ============================= */
-        /* ANIMATIONS */
-        /* ============================= */
-
-        /* Slow internal liquid motion */
-        @keyframes liquidFlow {
-            0% {
-                transform: translateY(0%) rotate(0deg);
-            }
-
-            50% {
-                transform: translateY(-6%) rotate(180deg);
-            }
-
-            100% {
-                transform: translateY(0%) rotate(360deg);
-            }
-        }
-
-        /* Soft reflection drift */
-        @keyframes liquidReflection {
-            to {
-                transform: translateX(120%) rotate(8deg);
-            }
-        }
-
-        /* ============================= */
-        /* DEPTH ENHANCEMENT */
-        /* ============================= */
-
-        .hero-card,
-        .event-tile,
-        .modal-card {
-            box-shadow:
-                inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-                inset 0 -20px 40px rgba(0, 0, 0, 0.4),
-                0 30px 80px rgba(0, 0, 0, 0.6);
-        }
-
-
-        /* Improve event text readability */
-        .event-tile {
-            color: rgba(255, 255, 255, 0.92);
-            text-shadow:
-                0 1px 2px rgba(0, 0, 0, 0.6),
-                0 0 8px rgba(255, 255, 255, 0.08);
-        }
-
-        /* Stronger on hover */
-        .event-tile:hover {
-            color: #ffffff;
-            text-shadow:
-                0 2px 6px rgba(0, 0, 0, 0.7),
-                0 0 12px rgba(31, 182, 255, 0.25);
-        }
-
-        /* Force text above liquid layers */
-        .event-tile,
-        .event-tile * {
-            position: relative;
-            z-index: 3;
-        }
-
-        /* Event text visibility fix */
-        .event-tile {
-            color: rgba(255, 255, 255, 0.96);
-            font-weight: 500;
-
-            text-shadow:
-                0 2px 4px rgba(0, 0, 0, 0.75),
-                0 0 10px rgba(255, 255, 255, 0.12);
-        }
-
-
-        /* Internal contrast mask behind text */
-        .event-tile::before {
-            background:
-                linear-gradient(to bottom,
-                    rgba(0, 0, 0, 0.35),
-                    rgba(0, 0, 0, 0.15)),
-                radial-gradient(circle at center,
-                    rgba(255, 255, 255, 0.08),
-                    transparent 60%);
-        }
-
-        .event-tile:hover {
-            color: #ffffff;
-            text-shadow:
-                0 3px 8px rgba(0, 0, 0, 0.85),
-                0 0 16px rgba(31, 182, 255, 0.35);
-        }
-
-
-        /* ============================= */
-        /* GLASS RIPPLE (HOVER) */
-        /* ============================= */
-
-        .event-tile {
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Ripple layer */
-        .event-tile::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at var(--rx, 50%) var(--ry, 50%),
-                    rgba(255, 255, 255, 0.22),
-                    rgba(255, 255, 255, 0.12) 20%,
-                    transparent 45%);
+            box-shadow: 0 10px 30px rgba(255, 79, 216, 0.4);
+            z-index: 100;
             opacity: 0;
-            transform: scale(0.6);
-            transition:
-                opacity 0.4s ease,
-                transform 0.6s cubic-bezier(.2, .8, .2, 1);
+            transform: translateY(20px) scale(0.9);
             pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
         }
 
-        /* Activate ripple on hover */
-        .event-tile:hover::after {
+        .sticky-register.visible {
             opacity: 1;
-            transform: scale(1.2);
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
         }
 
-
-        /* ============================= */
-        /* PROXIMITY GLOW */
-        /* ============================= */
-
-        .event-tile::before {
-            content: "";
-            position: absolute;
-            inset: -60%;
-            background:
-                radial-gradient(circle at var(--px, 50%) var(--py, 50%),
-                    rgba(31, 182, 255, 0.18),
-                    transparent 40%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
+        .sticky-register:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 16px 40px rgba(31, 182, 255, 0.5);
         }
 
-        /* Slight activation even without hover */
-        .event-tile.proximity::before {
-            opacity: 1;
-        }
-
-        /* ============================= */
-        /* WHY ATTEND – LARGE GLASS CARD */
-        /* ============================= */
-
-        .about-glass {
-            margin: 120px auto 80px;
-            max-width: 920px;
-            padding: 64px 64px;
-
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-
-            box-shadow:
-                inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-                inset 0 -30px 60px rgba(0, 0, 0, 0.45),
-                0 40px 120px rgba(0, 0, 0, 0.6);
-
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Subtle liquid movement (already matches your system) */
-        .about-glass::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background:
-                radial-gradient(circle at 25% 30%,
-                    rgba(255, 255, 255, 0.08),
-                    transparent 45%),
-                radial-gradient(circle at 75% 70%,
-                    rgba(255, 255, 255, 0.06),
-                    transparent 50%),
-                linear-gradient(to bottom,
-                    rgba(10, 14, 22, 0.85),
-                    rgba(18, 22, 32, 0.85));
-
-            filter: blur(20px);
-            animation: liquidFlow 20s ease-in-out infinite;
-            z-index: 0;
-        }
-
-        /* Reflection sweep */
-        .about-glass::after {
-            content: "";
-            position: absolute;
-            inset: -60%;
-            background: linear-gradient(120deg,
-                    transparent 35%,
-                    rgba(255, 255, 255, 0.18) 45%,
-                    transparent 55%);
-            transform: translateX(-120%) rotate(8deg);
-            animation: liquidReflection 14s linear infinite;
-            z-index: 1;
-        }
-
-        /* Content above glass */
-        .about-glass * {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Typography refinement */
-        .about-glass .about-title {
-            font-size: 22px;
-            letter-spacing: 0.18em;
-            margin-bottom: 28px;
-        }
-
-        .about-glass .about-text {
-            font-size: 15px;
-            line-height: 1.9;
-            color: rgba(255, 255, 255, 0.92);
-            max-width: 760px;
-            margin: 0 auto 36px;
-
-            text-shadow:
-                0 2px 6px rgba(0, 0, 0, 0.65);
-        }
-
-        /* Mobile tuning */
+        /* Media Queries */
         @media (max-width: 768px) {
-            .about-glass {
-                padding: 48px 28px;
-                margin: 90px 16px 60px;
+            .hero {
+                padding: 40px 16px;
+                min-height: auto;
+                margin-top: 24px;
             }
-        }
 
-        /* ============================= */
-        /* WHY ATTEND – COMPACT GLASS CARD */
-        /* ============================= */
+            .hero-card {
+                padding: 48px 24px;
+                border-radius: 20px;
+            }
 
-        .about-glass {
-            max-width: 760px;
-            /* ⬅ reduced from ~920px */
-            padding: 48px 48px;
-            /* ⬅ tighter padding */
-            margin: 96px auto 72px;
-            /* ⬅ less vertical dominance */
-            border-radius: 28px;
-            /* ⬅ slightly tighter curves */
-        }
-
-        /* Title spacing refinement */
-        .about-glass .about-title {
-            margin-bottom: 24px;
-        }
-
-        /* Text width control (more editorial) */
-        .about-glass .about-text {
-            max-width: 640px;
-            /* ⬅ keeps reading elegant */
-            margin: 0 auto 28px;
-        }
-
-        /* Mobile tuning */
-        @media (max-width: 768px) {
             .about-glass {
                 max-width: 100%;
                 padding: 36px 24px;
@@ -1171,479 +897,69 @@
             .about-glass .about-text {
                 max-width: 100%;
             }
-        }
 
-        /* ============================= */
-        /* LOCATION GLASS CARD */
-        /* ============================= */
-
-        .location-glass {
-            margin: 36px auto 0;
-            display: inline-flex;
-            align-items: center;
-            gap: 18px;
-
-            padding: 18px 28px;
-            border-radius: 999px;
-
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            text-decoration: none;
-
-            box-shadow:
-                inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-                0 18px 50px rgba(0, 0, 0, 0.45);
-
-            transition:
-                transform 0.35s cubic-bezier(.2, .8, .2, 1),
-                box-shadow 0.35s ease,
-                background 0.35s ease;
-        }
-
-        /* Hover polish */
-        .location-glass:hover {
-            transform: translateY(-4px);
-            background: rgba(255, 255, 255, 0.1);
-
-            box-shadow:
-                0 28px 80px rgba(31, 182, 255, 0.35),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-        }
-
-        /* Icon */
-        .location-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 20px;
-
-            background: linear-gradient(135deg,
-                    rgba(31, 182, 255, 0.9),
-                    rgba(255, 79, 216, 0.9));
-
-            box-shadow:
-                0 8px 24px rgba(31, 182, 255, 0.45);
-        }
-
-        /* Text */
-        .location-text {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-        }
-
-        .location-label {
-            font-size: 10px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-        }
-
-        .location-address {
-            font-family: 'Poppins', sans-serif;
-            font-size: 14px;
-            letter-spacing: 0.06em;
-            color: rgba(255, 255, 255, 0.95);
-            line-height: 1.4;
-
-            text-shadow:
-                0 2px 6px rgba(0, 0, 0, 0.6);
-        }
-
-        /* Mobile optimization */
-        @media (max-width: 768px) {
-            .location-glass {
+            .location-glass,
+            .contact-glass {
+                width: 100%;
                 padding: 16px 22px;
                 gap: 14px;
             }
 
-            .location-address {
-                font-size: 13px;
-            }
-        }
-
-        /* ============================= */
-        /* LOCATION CARD (UNDER REGISTER) */
-        /* ============================= */
-
-        .location-glass {
-            margin: 22px auto 0;
-            /* ⬅ tight to Register button */
-            display: inline-flex;
-            align-items: center;
-            gap: 16px;
-
-            padding: 16px 26px;
-            border-radius: 999px;
-
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            text-decoration: none;
-
-            box-shadow:
-                inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-                0 16px 45px rgba(0, 0, 0, 0.45);
-
-            transition:
-                transform 0.35s cubic-bezier(.2, .8, .2, 1),
-                box-shadow 0.35s ease,
-                background 0.35s ease;
-        }
-
-        /* Hover */
-        .location-glass:hover {
-            transform: translateY(-3px);
-            background: rgba(255, 255, 255, 0.1);
-
-            box-shadow:
-                0 26px 70px rgba(31, 182, 255, 0.35),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-        }
-
-        /* Icon */
-        .location-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 18px;
-
-            background: linear-gradient(135deg,
-                    rgba(31, 182, 255, 0.9),
-                    rgba(255, 79, 216, 0.9));
-
-            box-shadow: 0 8px 22px rgba(31, 182, 255, 0.45);
-        }
-
-        /* Text */
-        .location-text {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-        }
-
-        .location-label {
-            font-size: 10px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            margin-bottom: 3px;
-        }
-
-        .location-address {
-            font-family: 'Poppins', sans-serif;
-            font-size: 13.5px;
-            letter-spacing: 0.05em;
-            color: rgba(255, 255, 255, 0.95);
-            line-height: 1.4;
-
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
-        }
-
-        /* ============================= */
-        /* SPONSORS – GLASS SLIDER */
-        /* ============================= */
-
-        .sponsors-section {
-            margin: 100px auto 60px;
-            text-align: center;
-        }
-
-        .sponsors-title {
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: 0.22em;
-            font-size: 18px;
-            margin-bottom: 40px;
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        /* Slider container */
-        .sponsor-track-wrapper {
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Moving track */
-        .sponsor-track {
-            display: flex;
-            gap: 28px;
-            width: max-content;
-            animation: sponsorScroll 40s linear infinite;
-        }
-
-        /* Individual sponsor card */
-        .sponsor-card {
-            width: 180px;
-            height: 100px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(16px);
-
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-
-            box-shadow:
-                inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-                0 18px 50px rgba(0, 0, 0, 0.45);
-
-            flex-shrink: 0;
-        }
-
-        /* Logo inside card */
-        .sponsor-card img {
-            max-width: 70%;
-            max-height: 60%;
-            object-fit: contain;
-            filter: brightness(0.95) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
-        }
-
-        /* Fluid continuous motion */
-        @keyframes sponsorScroll {
-            from {
-                transform: translateX(0);
+            .glass-arrow-cursor {
+                display: none !important;
             }
 
-            to {
-                transform: translateX(-50%);
+            body {
+                cursor: auto !important;
             }
-        }
-
-
-
-        /* ============================= */
-        /* CONTACT GLASS CARDS */
-        /* ============================= */
-
-        .contact-glass {
-            display: inline-flex;
-            align-items: center;
-            gap: 16px;
-
-            padding: 16px 26px;
-            border-radius: 999px;
-
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            text-decoration: none;
-
-            box-shadow:
-                inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-                0 16px 45px rgba(0, 0, 0, 0.45);
-
-            transition:
-                transform 0.35s cubic-bezier(.2, .8, .2, 1),
-                box-shadow 0.35s ease,
-                background 0.35s ease;
-        }
-
-        .contact-glass:hover {
-            transform: translateY(-3px);
-            background: rgba(255, 255, 255, 0.1);
-
-            box-shadow:
-                0 26px 70px rgba(31, 182, 255, 0.35),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-        }
-
-        /* Icon */
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 18px;
-            color: #fff;
-        }
-
-        /* Email Gradient */
-        .contact-icon.email {
-            background: linear-gradient(135deg,
-                    rgba(31, 182, 255, 0.95),
-                    rgba(123, 63, 228, 0.95));
-            box-shadow: 0 8px 22px rgba(31, 182, 255, 0.45);
-        }
-
-        /* Instagram Gradient */
-        .contact-icon.insta {
-            background: linear-gradient(135deg,
-                    #F58529,
-                    #DD2A7B,
-                    #8134AF,
-                    #515BD4);
-            box-shadow: 0 8px 22px rgba(221, 42, 123, 0.45);
-        }
-
-        /* Text */
-        .contact-text {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-        }
-
-        .contact-label {
-            font-size: 10px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            margin-bottom: 3px;
-        }
-
-        .contact-value {
-            font-family: 'Poppins', sans-serif;
-            font-size: 13.5px;
-            letter-spacing: 0.05em;
-            color: rgba(255, 255, 255, 0.95);
-            line-height: 1.4;
-
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
-        }
-
-
-        /* ============================= */
-        /* EQUAL WIDTH CONTACT CARDS */
-        /* ============================= */
-
-        .contact-stack {
-            width: 80%;
-            max-width: 420px;
-            /* ⬅ adjust once, all cards follow */
-            margin: 0 auto;
-
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        /* Force equal width */
-        .location-glass,
-        .contact-glass {
-            width: 80%;
-            justify-content: flex-start;
-            /* keeps icon + text aligned */
         }
     </style>
 </head>
 
-
-<!-- Ambient Glass Layers -->
-<div class="ambient-glass">
-    <span class="glass-wave wave-1"></span>
-    <span class="glass-wave wave-2"></span>
-    <span class="glass-wave wave-3"></span>
-</div>
-
-
-
 <body>
+    <canvas id="particleCanvas"></canvas>
 
-    <section class="hero">
-        <div class="hero-card">
+    <main class="hero">
+        <div class="hero-card glass-liquid">
 
-            <!-- University Header -->
-            <div class="university-header">
-                <img src="imulogo.png" alt="Indian Maritime University Logo" class="imu-logo" />
-
+            <header class="university-header">
+                <img src="imulogo.png" alt="Indian Maritime University Logo" class="imu-logo" loading="lazy" />
                 <div class="university-text">
                     <div class="university-name">Indian Maritime University</div>
                     <div class="campus-name">Chennai Campus</div>
                 </div>
-            </div>
-
+            </header>
 
             <div class="tagline">School of Nautical Science Organizes</div>
-
             <img src="navgati-logo.png" alt="NAVGATI 2026 Logo" class="navgati-logo" />
 
+            <p class="subtitle">FROM DECK TO DESTINY</p>
 
-            <p class="subtitle">
-                FROM DECK TO DESTINY
-            </p>
             <div class="event-meta">
-
-
-
-
-
-
-
-                <div class="event-date">
-                    12 & 13 March 2026
-                </div>
-
+                <div class="event-date">12 & 13 March 2026</div>
             </div>
-
 
             <div class="countdown" id="countdown">
-                <div class="time-box">
-                    <span id="days">00</span>
-                    <small>Days</small>
-                </div>
-                <div class="time-box">
-                    <span id="hours">00</span>
-                    <small>Hours</small>
-                </div>
-                <div class="time-box">
-                    <span id="minutes">00</span>
-                    <small>Minutes</small>
-                </div>
-                <div class="time-box">
-                    <span id="seconds">00</span>
-                    <small>Seconds</small>
-                </div>
+                <div class="time-box"><span id="days">00</span><small>Days</small></div>
+                <div class="time-box"><span id="hours">00</span><small>Hours</small></div>
+                <div class="time-box"><span id="minutes">00</span><small>Minutes</small></div>
+                <div class="time-box"><span id="seconds">00</span><small>Seconds</small></div>
             </div>
-
 
             <a href="event-registration.html" class="cta-premium" target="_blank" rel="noopener noreferrer">
                 <span class="cta-text">Register Now</span>
                 <span class="cta-shine"></span>
             </a>
 
-            </br>
-
-
-
-            <!-- CONTACT GLASS CARDS -->
-            <div style="margin-top:16px; display:flex; flex-direction:column; gap:14px; align-items:center;">
+            <div class="contacts-wrapper">
                 <a href="https://maps.app.goo.gl/rRekiAmEGHsZ3HHc8" target="_blank" rel="noopener noreferrer"
-                    class="location-glass">
-
-                    <div class="location-icon">📍</div>
-
-                    <div class="location-text">
-                        <span class="location-label">Venue</span>
-                        <span class="location-address">
-                            Indian Maritime University, Chennai Campus
-                        </span>
+                    class="contact-glass">
+                    <div class="contact-icon location">📍</div>
+                    <div class="contact-text">
+                        <span class="contact-label">Venue</span>
+                        <span class="contact-value">IMU, Chennai Campus</span>
                     </div>
                 </a>
-                <!-- Email -->
                 <a href="mailto:imucc.navgati26@gmail.com" class="contact-glass">
                     <div class="contact-icon email">✉️</div>
                     <div class="contact-text">
@@ -1651,10 +967,6 @@
                         <span class="contact-value">imucc.navgati26@gmail.com</span>
                     </div>
                 </a>
-
-
-
-                <!-- Instagram -->
                 <a href="https://www.instagram.com/navgati_2026?igsh=bWcxemhnY2l5cXRo" target="_blank"
                     rel="noopener noreferrer" class="contact-glass">
                     <div class="contact-icon insta">📸</div>
@@ -1663,48 +975,35 @@
                         <span class="contact-value">navgati_2026</span>
                     </div>
                 </a>
-
             </div>
 
-
-
-
-            <div class="about-glass">
-                <div class="about-section">
-                    <h2 class="about-title">Why Attend Navgati?</h2>
-
-                    <p class="about-text">
-                        Navgati is a celebration of culture, creativity, and collaboration that reflects the vibrant
-                        life of
-                        maritime cadets beyond academics. The fest brings together students from diverse backgrounds to
-                        participate in engaging quizzes, artistic showcases, interactive games, and stage performances.
-                        Each
-                        event is designed to encourage confidence, teamwork, and self-expression while creating
-                        unforgettable
-                        memories. Navgati provides a unique platform to connect with peers, explore hidden talents, and
-                        experience
-                        healthy competition in a spirited atmosphere. It is where discipline meets creativity,
-                        friendships are
-                        forged, and moments turn into milestones.
-                    </p>
-
-                    <a href="https://drive.google.com/file/d/1DKUudUKdXvwgIO1OoLjQGbOUoXub2zTg" target="_blank" rel="noopener noreferrer"
-                        class="brochure-btn">
-                        Download Brochure
-                    </a>
-                </div>
-            </div>
+            <section class="about-glass glass-liquid">
+                <h2 class="about-title">Why Attend Navgati?</h2>
+                <p class="about-text">
+                    Navgati is a celebration of culture, creativity, and collaboration that reflects the vibrant life of
+                    maritime cadets beyond academics. The fest brings together students from diverse backgrounds to
+                    participate in engaging quizzes, artistic showcases, interactive games, and stage performances.
+                    Each event is designed to encourage confidence, teamwork, and self-expression while creating
+                    unforgettable memories. Navgati provides a unique platform to connect with peers, explore hidden
+                    talents, and experience healthy competition in a spirited atmosphere. It is where discipline meets
+                    creativity, friendships are forged, and moments turn into milestones.
+                </p>
+                <a href="https://drive.google.com/file/d/1DKUudUKdXvwgIO1OoLjQGbOUoXub2zTg" target="_blank"
+                    rel="noopener noreferrer" class="brochure-btn">
+                    Download Brochure
+                </a>
+            </section>
 
             <section class="sponsors-section">
                 <h2 class="sponsors-title">Our Sponsors</h2>
-
                 <div class="sponsor-track-wrapper">
-                    <div class="sponsor-track" id="sponsorTrack"></div>
+                    <div class="sponsor-track" id="sponsorTrack">
+                        <!-- Dynamically populated -->
+                    </div>
                 </div>
             </section>
 
-
-            <div class="events-section">
+            <section class="events-section">
                 <h2 class="events-title">EVENTS LINE-UP</h2>
 
                 <div class="events-day">
@@ -1712,16 +1011,31 @@
                         <span>Day 1</span>
                         <div class="day-line"></div>
                     </div>
-
                     <div class="events-grid">
-                        <div class="event-tile" data-event="maritime-quiz">Maritime Quiz</div>
-                        <div class="event-tile" data-event="paper-presentation">Paper Presentation</div>
-                        <div class="event-tile" data-event="ipl-auction">IPL Auction</div>
-                        <div class="event-tile" data-event="squid-game">Squid Game</div>
-                        <div class="event-tile" data-event="canvas-clash">Canvas Clash</div>
-                        <div class="event-tile" data-event="ballads-blue">Ballads of the Blue</div>
-                        <div class="event-tile" data-event="fifa">FIFA 23</div>
-                        <div class="event-tile" data-event="fashion">Fashion Chronicles</div>
+                        <div class="event-tile" data-event="maritime-quiz">
+                            <div class="event-tile-bg"></div><span>Maritime Quiz</span>
+                        </div>
+                        <div class="event-tile" data-event="paper-presentation">
+                            <div class="event-tile-bg"></div><span>Paper Presentation</span>
+                        </div>
+                        <div class="event-tile" data-event="ipl-auction">
+                            <div class="event-tile-bg"></div><span>IPL Auction</span>
+                        </div>
+                        <div class="event-tile" data-event="squid-game">
+                            <div class="event-tile-bg"></div><span>Squid Game</span>
+                        </div>
+                        <div class="event-tile" data-event="canvas-clash">
+                            <div class="event-tile-bg"></div><span>Canvas Clash</span>
+                        </div>
+                        <div class="event-tile" data-event="ballads-blue">
+                            <div class="event-tile-bg"></div><span>Ballads of the Blue</span>
+                        </div>
+                        <div class="event-tile" data-event="fifa">
+                            <div class="event-tile-bg"></div><span>FIFA 23</span>
+                        </div>
+                        <div class="event-tile" data-event="fashion">
+                            <div class="event-tile-bg"></div><span>Fashion Chronicles</span>
+                        </div>
                     </div>
                 </div>
 
@@ -1730,343 +1044,294 @@
                         <span>Day 2</span>
                         <div class="day-line"></div>
                     </div>
-
                     <div class="events-grid">
-                        <div class="event-tile" data-event="rhythm-waves">Rhythm & Waves</div>
-                        <div class="event-tile" data-event="mr-ms-navgati">Crowned at Sea</div>
-                        <div class="event-tile" data-event="Pitch Perfect">Pitch Perfect</div>
-                        <div class="event-tile" data-event="frames-deep">Frames from the Deep</div>
-                        <div class="event-tile" data-event="foosball">Foosball IRL</div>
-                        <div class="event-tile" data-event="mic-check">Mic Check</div>
-                        <div class="event-tile" data-event="shutter-swirl">Shutter Swirl</div>
-                        <div class="event-tile" data-event="arm-wrestling">Arm Wrestling</div>
+                        <div class="event-tile" data-event="rhythm-waves">
+                            <div class="event-tile-bg"></div><span>Rhythm & Waves</span>
+                        </div>
+                        <div class="event-tile" data-event="mr-ms-navgati">
+                            <div class="event-tile-bg"></div><span>Crowned at Sea</span>
+                        </div>
+                        <div class="event-tile" data-event="Pitch Perfect">
+                            <div class="event-tile-bg"></div><span>Pitch Perfect</span>
+                        </div>
+                        <div class="event-tile" data-event="frames-deep">
+                            <div class="event-tile-bg"></div><span>Frames from the Deep</span>
+                        </div>
+                        <div class="event-tile" data-event="foosball">
+                            <div class="event-tile-bg"></div><span>Futsal</span>
+                        </div>
+                        <div class="event-tile" data-event="mic-check">
+                            <div class="event-tile-bg"></div><span>Mic Check</span>
+                        </div>
+                        <div class="event-tile" data-event="shutter-swirl">
+                            <div class="event-tile-bg"></div><span>Shutter Swirl</span>
+                        </div>
+                        <div class="event-tile" data-event="arm-wrestling">
+                            <div class="event-tile-bg"></div><span>Arm Wrestling</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-
-
-
-
-
-            <div class="footer-note">
-                <BR>@INDIAN MARITIME UNIVERSITY
-
-                CHENNAI CAMPUS </BR>
-                <BR>Designed & Developed by Cadet Jatindra Meher
-                </BR>
-            </div>
+            <footer class="footer-note">
+                <br>@INDIAN MARITIME UNIVERSITY CHENNAI CAMPUS<br>
+                <br>Designed & Developed by Cadet Jatindra Meher<br>
+            </footer>
 
         </div>
-    </section>
-
-
+    </main>
 
     <!-- EVENT MODAL -->
     <div class="event-modal" id="eventModal">
         <div class="modal-backdrop"></div>
-
         <div class="modal-card">
             <h2 id="modalTitle">Event Title</h2>
-
-            <p id="modalDescription">
-                Event description goes here...
-            </p>
-
+            <p id="modalDescription">Event description goes here...</p>
             <div class="coordinator">
                 <span>Coordinator</span>
                 <strong id="modalCoordinator">Name</strong>
-
-                <a id="modalPhone" href="#">
-                    📞 <span></span>
-                </a>
+                <a id="modalPhone" href="#">📞 <span></span></a>
             </div>
         </div>
     </div>
 
-
+    <!-- STICKY REGISTER BUTTON -->
+    <a href="event-registration.html" class="sticky-register" id="stickyRegister" target="_blank"
+        rel="noopener noreferrer">
+        Register
+    </a>
 
     <div class="glass-arrow-cursor" id="glassCursor"></div>
 
-
     <script>
-        // Event date: 12 March 2026, 09:00 AM
-        const eventDate = new Date("March 12, 2026 09:00:00").getTime();
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Countdown Logic
+            const eventDate = new Date("March 12, 2026 09:00:00").getTime();
+            const countdownEl = document.getElementById("countdown");
 
-        const countdown = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = eventDate - now;
+            const countdownTimer = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = eventDate - now;
 
-            if (distance < 0) {
-                clearInterval(countdown);
-                document.getElementById("countdown").innerHTML =
-                    "<div class='event-date'>Event Live Now</div>";
-                return;
+                if (distance < 0) {
+                    clearInterval(countdownTimer);
+                    countdownEl.innerHTML = "<div class='event-date'>Event Live Now</div>";
+                    return;
+                }
+
+                document.getElementById("days").innerText = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, "0");
+                document.getElementById("hours").innerText = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, "0");
+                document.getElementById("minutes").innerText = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, "0");
+                document.getElementById("seconds").innerText = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, "0");
+            }, 1000);
+
+            // 2. Cursor Engine & Proximity Effects
+            const cursor = document.getElementById("glassCursor");
+            const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+            if (isTouchDevice) {
+                cursor.style.display = "none";
+                document.body.style.cursor = "auto";
+            } else {
+                let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+
+                document.addEventListener("mousemove", (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    // Direct follow for accurate clicking
+                    cursor.style.left = `${mouseX}px`;
+                    cursor.style.top = `${mouseY}px`;
+                });
+
+                const interactiveElements = document.querySelectorAll("a, button, .event-tile, .cta-premium, .brochure-btn");
+                interactiveElements.forEach(el => {
+                    el.addEventListener("mouseenter", () => cursor.classList.add("active"));
+                    el.addEventListener("mouseleave", () => cursor.classList.remove("active"));
+                });
+
+                document.addEventListener("mousedown", () => cursor.style.transform = "translate(-10%, -10%) scale(0.9)");
+                document.addEventListener("mouseup", () => cursor.style.transform = "translate(-10%, -10%) scale(1)");
+
+                const tiles = document.querySelectorAll(".event-tile");
+                document.addEventListener("mousemove", (e) => {
+                    tiles.forEach(tile => {
+                        const rect = tile.getBoundingClientRect();
+                        const cx = rect.left + rect.width / 2;
+                        const cy = rect.top + rect.height / 2;
+                        const distance = Math.hypot(e.clientX - cx, e.clientY - cy);
+
+                        if (distance < 220) {
+                            tile.style.setProperty("--px", `${((e.clientX - rect.left) / rect.width) * 100}%`);
+                            tile.style.setProperty("--py", `${((e.clientY - rect.top) / rect.height) * 100}%`);
+                            tile.classList.add("proximity");
+                        } else {
+                            tile.classList.remove("proximity");
+                        }
+                    });
+                });
+
+                tiles.forEach(tile => {
+                    tile.addEventListener("mousemove", e => {
+                        const rect = tile.getBoundingClientRect();
+                        tile.style.setProperty("--rx", `${((e.clientX - rect.left) / rect.width) * 100}%`);
+                        tile.style.setProperty("--ry", `${((e.clientY - rect.top) / rect.height) * 100}%`);
+                    });
+                });
             }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // 3. Modal Logic
+            const modal = document.getElementById("eventModal");
+            const modalTitle = document.getElementById("modalTitle");
+            const modalDesc = document.getElementById("modalDescription");
+            const modalCoordinator = document.getElementById("modalCoordinator");
+            const modalPhone = document.getElementById("modalPhone");
 
-            document.getElementById("days").innerText = String(days).padStart(2, "0");
-            document.getElementById("hours").innerText = String(hours).padStart(2, "0");
-            document.getElementById("minutes").innerText = String(minutes).padStart(2, "0");
-            document.getElementById("seconds").innerText = String(seconds).padStart(2, "0");
-        }, 1000);
-
-
-        const slider = document.getElementById("eventSlider");
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        slider.addEventListener("mousedown", e => {
-            isDown = true;
-            startX = e.pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-        });
-
-        slider.addEventListener("mouseleave", () => isDown = false);
-        slider.addEventListener("mouseup", () => isDown = false);
-
-        slider.addEventListener("mousemove", e => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2;
-            slider.scrollLeft = scrollLeft - walk;
-        });
-
-
-
-
-
-
-    </script>
-
-
-    <script>
-        const modal = document.getElementById("eventModal");
-        const modalTitle = document.getElementById("modalTitle");
-        const modalDesc = document.getElementById("modalDescription");
-        const modalCoordinator = document.getElementById("modalCoordinator");
-        const modalPhone = document.getElementById("modalPhone");
-
-        document.querySelectorAll(".event-tile").forEach(card => {
-            card.addEventListener("click", async () => {
-                const eventKey = card.dataset.event;
-
-                const res = await fetch(`events/${eventKey}.json`);
-                const data = await res.json();
-
-                modalTitle.textContent = data.title;
-                modalDesc.textContent = data.description;
-                modalCoordinator.textContent = data.coordinator.name;
-                modalPhone.href = `tel:${data.coordinator.phone}`;
-                modalPhone.querySelector("span").textContent = data.coordinator.phone;
-
-                modal.style.display = "flex";
-                modal.classList.remove("closing");
-                modal.classList.add("show");
-            });
-        });
-        document.addEventListener("mousedown", () => {
-            cursor.style.transform = "translate(-10%, -10%) scale(0.9)";
-        });
-        document.addEventListener("mouseup", () => {
-            cursor.style.transform = "translate(-10%, -10%) scale(1)";
-        });
-
-
-        // Close on backdrop click
-        modal.addEventListener("click", (e) => {
-            if (!e.target.closest(".modal-card")) {
+            function closeModal() {
                 modal.classList.remove("show");
                 modal.classList.add("closing");
-
                 setTimeout(() => {
                     modal.style.display = "none";
                     modal.classList.remove("closing");
                 }, 300);
             }
-        });
 
+            document.querySelectorAll(".event-tile").forEach(card => {
+                card.addEventListener("click", async () => {
+                    const eventKey = card.dataset.event;
+                    try {
+                        const res = await fetch(`events/${eventKey}.json`);
+                        if (res.ok) {
+                            const data = await res.json();
+                            modalTitle.textContent = data.title || card.querySelector("span").textContent;
+                            modalDesc.textContent = data.description || "Details coming soon!";
+                            if (data.coordinator) {
+                                modalCoordinator.textContent = data.coordinator.name || "TBA";
+                                modalPhone.href = `tel:${data.coordinator.phone || ""}`;
+                                modalPhone.querySelector("span").textContent = data.coordinator.phone || "TBA";
+                            }
+                        } else {
+                            throw new Error("No data");
+                        }
+                    } catch (e) {
+                        modalTitle.textContent = card.querySelector("span").textContent;
+                        modalDesc.textContent = "Exciting details to be revealed soon! Stay tuned.";
+                        modalCoordinator.textContent = "TBA";
+                        modalPhone.href = "#";
+                        modalPhone.querySelector("span").textContent = "TBA";
+                    }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const cursor = document.getElementById("glassCursor");
-            if (!cursor) return;
-
-            // Disable on touch devices
-            if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
-                document.body.style.cursor = "auto";
-                cursor.style.display = "none";
-                return;
-            }
-
-            document.addEventListener("mousemove", (e) => {
-                cursor.style.left = `${e.clientX}px`;
-                cursor.style.top = `${e.clientY}px`;
-            });
-
-            const hoverTargets = [
-                "a",
-                "button",
-                ".event-card",
-                ".cta",
-                ".brochure-btn"
-            ];
-
-            hoverTargets.forEach(selector => {
-                document.querySelectorAll(selector).forEach(el => {
-                    el.addEventListener("mouseenter", () => {
-                        cursor.classList.add("active");
-                    });
-                    el.addEventListener("mouseleave", () => {
-                        cursor.classList.remove("active");
-                    });
+                    modal.style.display = "flex";
+                    void modal.offsetWidth; // Trigger reflow
+                    modal.classList.remove("closing");
+                    modal.classList.add("show");
                 });
             });
 
-            document.addEventListener("mousedown", () => {
-                cursor.style.transform = "translate(-10%, -10%) scale(0.9)";
-            });
-
-            document.addEventListener("mouseup", () => {
-                cursor.style.transform = "translate(-10%, -10%) scale(1)";
-            });
-        });
-
-
-
-
-
-
-
-
-    </script>
-
-    <script>
-        const cards = document.querySelectorAll(".event-card");
-        const sliderEl = document.getElementById("eventSlider");
-
-        function updateActiveCard() {
-            const sliderRect = sliderEl.getBoundingClientRect();
-            const center = sliderRect.left + sliderRect.width / 2;
-
-            cards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const cardCenter = rect.left + rect.width / 2;
-                const distance = Math.abs(center - cardCenter);
-
-                if (distance < rect.width / 2) {
-                    card.classList.add("active");
-                } else {
-                    card.classList.remove("active");
+            modal.addEventListener("click", (e) => {
+                if (!e.target.closest(".modal-card")) {
+                    closeModal();
                 }
             });
-        }
 
-        sliderEl.addEventListener("scroll", () => {
-            requestAnimationFrame(updateActiveCard);
-        });
+            // 4. Sponsor Loading
+            async function loadSponsors() {
+                try {
+                    const res = await fetch("data/sponsors.json");
+                    if (!res.ok) return;
+                    const sponsors = await res.json();
+                    const track = document.getElementById("sponsorTrack");
 
-        // Initial state
-        updateActiveCard();
-
-        sliderEl.addEventListener("wheel", (e) => {
-            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                e.preventDefault();
-                sliderEl.scrollLeft += e.deltaY * 1.1;
+                    if (sponsors && sponsors.length > 0) {
+                        const allSponsors = [...sponsors, ...sponsors];
+                        allSponsors.forEach(file => {
+                            const card = document.createElement("div");
+                            card.className = "sponsor-card";
+                            const img = document.createElement("img");
+                            img.src = `sponsors/${file}`;
+                            img.alt = "Sponsor Logo";
+                            img.loading = "lazy";
+                            card.appendChild(img);
+                            track.appendChild(card);
+                        });
+                    }
+                } catch (e) {
+                    console.warn("Failed to load sponsors data", e);
+                }
             }
-        }, { passive: false });
-    </script>
+            loadSponsors();
 
+            // 5. Canvas Particles (Maritime glowing dots)
+            const canvas = document.getElementById("particleCanvas");
+            const ctx = canvas.getContext("2d");
 
-    <script>
-        /* ============================= */
-        /* CURSOR PROXIMITY ENGINE */
-        /* ============================= */
+            let particles = [];
+            const particleCount = 60; // Subtle density
 
-        const tiles = document.querySelectorAll(".event-tile");
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener("resize", resizeCanvas);
+            resizeCanvas();
 
-        document.addEventListener("mousemove", (e) => {
-            tiles.forEach(tile => {
-                const rect = tile.getBoundingClientRect();
-                const cx = rect.left + rect.width / 2;
-                const cy = rect.top + rect.height / 2;
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.3; // Very slow drift
+                    this.vy = (Math.random() - 0.5) * 0.3 - 0.2; // Slight upward bias
+                    this.radius = Math.random() * 2 + 0.5;
+                    this.alpha = Math.random() * 0.5 + 0.1;
+                }
 
-                const dx = e.clientX - cx;
-                const dy = e.clientY - cy;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
 
-                const maxDistance = 220; // sensitivity radius
+                    // Wrap around edges
+                    if (this.y < 0) this.y = canvas.height;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.x > canvas.width) this.x = 0;
+                }
 
-                if (distance < maxDistance) {
-                    const px = ((e.clientX - rect.left) / rect.width) * 100;
-                    const py = ((e.clientY - rect.top) / rect.height) * 100;
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(125, 201, 238, ${this.alpha})`; // Maritime cyan/blue tint
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = "rgba(31, 182, 255, 0.6)";
+                    ctx.fill();
+                }
+            }
 
-                    tile.style.setProperty("--px", `${px}%`);
-                    tile.style.setProperty("--py", `${py}%`);
-                    tile.classList.add("proximity");
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            // 6. Sticky Register Button visibility
+            const stickyBtn = document.getElementById("stickyRegister");
+            // Show button after scrolling past 600px
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 600) {
+                    stickyBtn.classList.add("visible");
                 } else {
-                    tile.classList.remove("proximity");
+                    stickyBtn.classList.remove("visible");
                 }
             });
+
         });
-
-        /* Ripple follows cursor on hover */
-        tiles.forEach(tile => {
-            tile.addEventListener("mousemove", e => {
-                const rect = tile.getBoundingClientRect();
-                const rx = ((e.clientX - rect.left) / rect.width) * 100;
-                const ry = ((e.clientY - rect.top) / rect.height) * 100;
-
-                tile.style.setProperty("--rx", `${rx}%`);
-                tile.style.setProperty("--ry", `${ry}%`);
-            });
-        });
-
-
-
-
-
-
-        async function loadSponsors() {
-            const res = await fetch("data/sponsors.json");
-            const sponsors = await res.json();
-
-            const track = document.getElementById("sponsorTrack");
-
-            // Duplicate list for seamless loop
-            const allSponsors = [...sponsors, ...sponsors];
-
-            allSponsors.forEach(file => {
-                const card = document.createElement("div");
-                card.className = "sponsor-card";
-
-                const img = document.createElement("img");
-                img.src = `sponsors/${file}`;
-                img.alt = "Sponsor Logo";
-
-                card.appendChild(img);
-                track.appendChild(card);
-            });
-        }
-
-        loadSponsors();
-
-
     </script>
-
-
-
-
-
-
-
-
 </body>
-
 
 </html>
