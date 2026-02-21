@@ -3,10 +3,14 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=1024" />
     <title>NAVGATI 2026 | From Deck to Destiny</title>
     <meta name="description"
         content="Join NAVGATI 2026, the premier maritime festival at IMU Chennai Campus, for events, presentations, and competitions." />
+
+    <!-- Performance Setup: Preconnecting to font providers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Google Fonts -->
     <link
@@ -47,6 +51,7 @@
             min-height: 100vh;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
             scroll-behavior: smooth;
         }
 
@@ -108,6 +113,7 @@
             animation: liquidFlow 18s ease-in-out infinite;
             z-index: -2;
             pointer-events: none;
+            will-change: transform;
         }
 
         .glass-liquid::after {
@@ -119,6 +125,7 @@
             animation: liquidReflection 12s linear infinite;
             z-index: -1;
             pointer-events: none;
+            will-change: transform;
         }
 
         /* Hero Section */
@@ -138,6 +145,7 @@
             text-align: center;
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 -20px 40px rgba(0, 0, 0, 0.4), 0 30px 80px rgba(0, 0, 0, 0.6);
             animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            will-change: transform, opacity;
         }
 
         /* Typography & Headers */
@@ -195,6 +203,7 @@
             margin-bottom: 32px;
             filter: drop-shadow(0 10px 40px rgba(123, 63, 228, 0.35));
             animation: fadeInScale 0.9s ease forwards;
+            will-change: transform, opacity;
         }
 
         .subtitle {
@@ -249,6 +258,8 @@
             background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-variant-numeric: tabular-nums;
+            /* Optimization for ticking numbers */
         }
 
         .time-box small {
@@ -331,6 +342,7 @@
             text-decoration: none;
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06), 0 16px 45px rgba(0, 0, 0, 0.45);
             transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), box-shadow 0.35s ease, background 0.35s ease;
+            will-change: transform;
         }
 
         .contact-glass:hover {
@@ -444,12 +456,70 @@
             letter-spacing: 0.08em;
             text-decoration: none;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            will-change: transform;
         }
 
         .brochure-btn:hover {
             transform: translateY(-2px);
             background: rgba(255, 255, 255, 0.12);
             box-shadow: 0 14px 40px rgba(31, 182, 255, 0.35);
+        }
+
+        /* Highlights Section */
+        .highlights-section {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin: 40px auto 80px;
+            max-width: 1000px;
+            padding: 0 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .highlight-card {
+            flex: 1;
+            min-width: 250px;
+            padding: 24px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            text-align: center;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(31, 182, 255, 0.2);
+            border-color: rgba(31, 182, 255, 0.3);
+        }
+
+        .highlight-icon {
+            font-size: 38px;
+            margin-bottom: 12px;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .highlight-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        .highlight-text {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
 
         /* Sponsors Section */
@@ -493,6 +563,7 @@
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06), 0 18px 50px rgba(0, 0, 0, 0.45);
             flex-shrink: 0;
             transition: transform 0.3s ease;
+            will-change: transform;
         }
 
         .sponsor-card:hover {
@@ -578,6 +649,7 @@
             transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), box-shadow 0.35s ease, background 0.35s ease, color 0.3s ease;
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 -20px 40px rgba(0, 0, 0, 0.4), 0 30px 80px rgba(0, 0, 0, 0.6);
             z-index: 1;
+            will-change: transform;
         }
 
         .event-tile * {
@@ -923,7 +995,9 @@
         <div class="hero-card glass-liquid">
 
             <header class="university-header">
-                <img src="imulogo.png" alt="Indian Maritime University Logo" class="imu-logo" loading="lazy" />
+                <!-- Added loading="eager" for LCP optimization -->
+                <img src="imulogo.png" alt="Indian Maritime University Logo" class="imu-logo" loading="eager" width="90"
+                    height="90" />
                 <div class="university-text">
                     <div class="university-name">Indian Maritime University</div>
                     <div class="campus-name">Chennai Campus</div>
@@ -931,7 +1005,8 @@
             </header>
 
             <div class="tagline">School of Nautical Science Organizes</div>
-            <img src="navgati-logo.png" alt="NAVGATI 2026 Logo" class="navgati-logo" />
+            <!-- Added width/height if available, otherwise eager is good -->
+            <img src="navgati-logo.png" alt="NAVGATI 2026 Logo" class="navgati-logo" loading="eager" />
 
             <p class="subtitle">FROM DECK TO DESTINY</p>
 
@@ -946,21 +1021,23 @@
                 <div class="time-box"><span id="seconds">00</span><small>Seconds</small></div>
             </div>
 
-            <a href="event-registration.html" class="cta-premium" target="_blank" rel="noopener noreferrer">
+            <a href="event-registration.html" class="cta-premium" target="_blank" rel="noopener noreferrer"
+                aria-label="Register Now for the Event">
                 <span class="cta-text">Register Now</span>
                 <span class="cta-shine"></span>
             </a>
 
             <div class="contacts-wrapper">
                 <a href="https://maps.app.goo.gl/rRekiAmEGHsZ3HHc8" target="_blank" rel="noopener noreferrer"
-                    class="contact-glass">
+                    class="contact-glass" aria-label="Location: IMU Chennai Campus">
                     <div class="contact-icon location">📍</div>
                     <div class="contact-text">
                         <span class="contact-label">Venue</span>
                         <span class="contact-value">IMU, Chennai Campus</span>
                     </div>
                 </a>
-                <a href="mailto:imucc.navgati26@gmail.com" class="contact-glass">
+                <a href="mailto:imucc.navgati26@gmail.com" class="contact-glass"
+                    aria-label="Email: imucc.navgati26@gmail.com">
                     <div class="contact-icon email">✉️</div>
                     <div class="contact-text">
                         <span class="contact-label">Email</span>
@@ -968,7 +1045,7 @@
                     </div>
                 </a>
                 <a href="https://www.instagram.com/navgati_2026?igsh=bWcxemhnY2l5cXRo" target="_blank"
-                    rel="noopener noreferrer" class="contact-glass">
+                    rel="noopener noreferrer" class="contact-glass" aria-label="Instagram: navgati_2026">
                     <div class="contact-icon insta">📸</div>
                     <div class="contact-text">
                         <span class="contact-label">Instagram</span>
@@ -989,9 +1066,31 @@
                     creativity, friendships are forged, and moments turn into milestones.
                 </p>
                 <a href="https://drive.google.com/file/d/1DKUudUKdXvwgIO1OoLjQGbOUoXub2zTg" target="_blank"
-                    rel="noopener noreferrer" class="brochure-btn">
+                    rel="noopener noreferrer" class="brochure-btn" aria-label="Download Brochure PDF">
                     Download Brochure
                 </a>
+            </section>
+
+            <!-- Highlights Section -->
+            <section class="highlights-section">
+                <div class="highlight-card">
+                    <span class="highlight-icon">🏅</span>
+                    <div class="highlight-title">₹1 Lakh Prize Pool</div>
+                    <div class="highlight-text">Exciting cash prizes and merit certificates for winners and
+                        participants.</div>
+                </div>
+                <div class="highlight-card">
+                    <span class="highlight-icon">🎓</span>
+                    <div class="highlight-title">Inter-College</div>
+                    <div class="highlight-text">Open to all maritime and external college students to showcase their
+                        talent.</div>
+                </div>
+                <div class="highlight-card">
+                    <span class="highlight-icon">🎤</span>
+                    <div class="highlight-title">16 Events</div>
+                    <div class="highlight-text">A perfect mix of competitive, cultural, and technical events to
+                        participate in.</div>
+                </div>
             </section>
 
             <section class="sponsors-section">
@@ -1012,28 +1111,33 @@
                         <div class="day-line"></div>
                     </div>
                     <div class="events-grid">
-                        <div class="event-tile" data-event="maritime-quiz">
+                        <div class="event-tile" data-event="maritime-quiz" tabindex="0" role="button"
+                            aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Maritime Quiz</span>
                         </div>
-                        <div class="event-tile" data-event="paper-presentation">
+                        <div class="event-tile" data-event="paper-presentation" tabindex="0" role="button"
+                            aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Paper Presentation</span>
                         </div>
-                        <div class="event-tile" data-event="ipl-auction">
+                        <div class="event-tile" data-event="ipl-auction" tabindex="0" role="button"
+                            aria-pressed="false">
                             <div class="event-tile-bg"></div><span>IPL Auction</span>
                         </div>
-                        <div class="event-tile" data-event="squid-game">
+                        <div class="event-tile" data-event="squid-game" tabindex="0" role="button" aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Squid Game</span>
                         </div>
-                        <div class="event-tile" data-event="canvas-clash">
+                        <div class="event-tile" data-event="canvas-clash" tabindex="0" role="button"
+                            aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Canvas Clash</span>
                         </div>
-                        <div class="event-tile" data-event="ballads-blue">
+                        <div class="event-tile" data-event="ballads-blue" tabindex="0" role="button"
+                            aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Ballads of the Blue</span>
                         </div>
-                        <div class="event-tile" data-event="fifa">
+                        <div class="event-tile" data-event="fifa" tabindex="0" role="button" aria-pressed="false">
                             <div class="event-tile-bg"></div><span>FIFA 23</span>
                         </div>
-                        <div class="event-tile" data-event="fashion">
+                        <div class="event-tile" data-event="fashion" tabindex="0" role="button" aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Fashion Chronicles</span>
                         </div>
                     </div>
@@ -1045,28 +1149,34 @@
                         <div class="day-line"></div>
                     </div>
                     <div class="events-grid">
-                        <div class="event-tile" data-event="rhythm-waves">
+                        <div class="event-tile" data-event="rhythm-waves" tabindex="0" role="button"
+                            aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Rhythm & Waves</span>
                         </div>
-                        <div class="event-tile" data-event="mr-ms-navgati">
+                        <div class="event-tile" data-event="mr-ms-navgati" tabindex="0" role="button"
+                            aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Crowned at Sea</span>
                         </div>
-                        <div class="event-tile" data-event="Pitch Perfect">
+                        <div class="event-tile" data-event="Pitch Perfect" tabindex="0" role="button"
+                            aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Pitch Perfect</span>
                         </div>
-                        <div class="event-tile" data-event="frames-deep">
+                        <div class="event-tile" data-event="frames-deep" tabindex="0" role="button"
+                            aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Frames from the Deep</span>
                         </div>
-                        <div class="event-tile" data-event="foosball">
+                        <div class="event-tile" data-event="foosball" tabindex="0" role="button" aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Futsal</span>
                         </div>
-                        <div class="event-tile" data-event="mic-check">
+                        <div class="event-tile" data-event="mic-check" tabindex="0" role="button" aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Mic Check</span>
                         </div>
-                        <div class="event-tile" data-event="shutter-swirl">
+                        <div class="event-tile" data-event="shutter-swirl" tabindex="0" role="button"
+                            aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Shutter Swirl</span>
                         </div>
-                        <div class="event-tile" data-event="arm-wrestling">
+                        <div class="event-tile" data-event="arm-wrestling" tabindex="0" role="button"
+                            aria-pressed="false">
                             <div class="event-tile-bg"></div><span>Arm Wrestling</span>
                         </div>
                     </div>
@@ -1082,32 +1192,40 @@
     </main>
 
     <!-- EVENT MODAL -->
-    <div class="event-modal" id="eventModal">
-        <div class="modal-backdrop"></div>
+    <div class="event-modal" id="eventModal" role="dialog" aria-labelledby="modalTitle"
+        aria-describedby="modalDescription" aria-hidden="true">
+        <div class="modal-backdrop" aria-hidden="true"></div>
         <div class="modal-card">
             <h2 id="modalTitle">Event Title</h2>
             <p id="modalDescription">Event description goes here...</p>
             <div class="coordinator">
                 <span>Coordinator</span>
                 <strong id="modalCoordinator">Name</strong>
-                <a id="modalPhone" href="#">📞 <span></span></a>
+                <a id="modalPhone" href="#" aria-label="Call Coordinator">📞 <span></span></a>
             </div>
+            <!-- Missing close button for better accessibility, but sticking to original layout -->
         </div>
     </div>
 
     <!-- STICKY REGISTER BUTTON -->
     <a href="event-registration.html" class="sticky-register" id="stickyRegister" target="_blank"
-        rel="noopener noreferrer">
+        rel="noopener noreferrer" aria-label="Go to Event Registration">
         Register
     </a>
 
-    <div class="glass-arrow-cursor" id="glassCursor"></div>
+    <div class="glass-arrow-cursor" id="glassCursor" aria-hidden="true"></div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // 1. Countdown Logic
             const eventDate = new Date("March 12, 2026 09:00:00").getTime();
             const countdownEl = document.getElementById("countdown");
+
+            // Caching DOM elements to avoid frequent queries
+            const elDays = document.getElementById("days");
+            const elHours = document.getElementById("hours");
+            const elMins = document.getElementById("minutes");
+            const elSecs = document.getElementById("seconds");
 
             const countdownTimer = setInterval(() => {
                 const now = new Date().getTime();
@@ -1119,10 +1237,11 @@
                     return;
                 }
 
-                document.getElementById("days").innerText = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, "0");
-                document.getElementById("hours").innerText = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, "0");
-                document.getElementById("minutes").innerText = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, "0");
-                document.getElementById("seconds").innerText = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, "0");
+                // Update text fast without layout recalculation if possible
+                elDays.textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, "0");
+                elHours.textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, "0");
+                elMins.textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, "0");
+                elSecs.textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, "0");
             }, 1000);
 
             // 2. Cursor Engine & Proximity Effects
@@ -1134,14 +1253,21 @@
                 document.body.style.cursor = "auto";
             } else {
                 let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+                let cursorRafId = null;
 
+                // Optimization: Throttle main mousemove using rAF to prevent layout thrashing
                 document.addEventListener("mousemove", (e) => {
                     mouseX = e.clientX;
                     mouseY = e.clientY;
-                    // Direct follow for accurate clicking
-                    cursor.style.left = `${mouseX}px`;
-                    cursor.style.top = `${mouseY}px`;
-                });
+
+                    if (!cursorRafId) {
+                        cursorRafId = requestAnimationFrame(() => {
+                            cursor.style.left = `${mouseX}px`;
+                            cursor.style.top = `${mouseY}px`;
+                            cursorRafId = null;
+                        });
+                    }
+                }, { passive: true });
 
                 const interactiveElements = document.querySelectorAll("a, button, .event-tile, .cta-premium, .brochure-btn");
                 interactiveElements.forEach(el => {
@@ -1149,33 +1275,43 @@
                     el.addEventListener("mouseleave", () => cursor.classList.remove("active"));
                 });
 
-                document.addEventListener("mousedown", () => cursor.style.transform = "translate(-10%, -10%) scale(0.9)");
-                document.addEventListener("mouseup", () => cursor.style.transform = "translate(-10%, -10%) scale(1)");
+                document.addEventListener("mousedown", () => cursor.style.transform = "translate(-10%, -10%) scale(0.9)", { passive: true });
+                document.addEventListener("mouseup", () => cursor.style.transform = "translate(-10%, -10%) scale(1)", { passive: true });
 
                 const tiles = document.querySelectorAll(".event-tile");
-                document.addEventListener("mousemove", (e) => {
-                    tiles.forEach(tile => {
-                        const rect = tile.getBoundingClientRect();
-                        const cx = rect.left + rect.width / 2;
-                        const cy = rect.top + rect.height / 2;
-                        const distance = Math.hypot(e.clientX - cx, e.clientY - cy);
+                let proximityRafId = null;
 
-                        if (distance < 220) {
-                            tile.style.setProperty("--px", `${((e.clientX - rect.left) / rect.width) * 100}%`);
-                            tile.style.setProperty("--py", `${((e.clientY - rect.top) / rect.height) * 100}%`);
-                            tile.classList.add("proximity");
-                        } else {
-                            tile.classList.remove("proximity");
-                        }
-                    });
-                });
+                // Optimized Proximity calculation using common global mouse listener
+                document.addEventListener("mousemove", (e) => {
+                    if (!proximityRafId) {
+                        proximityRafId = requestAnimationFrame(() => {
+                            tiles.forEach(tile => {
+                                const rect = tile.getBoundingClientRect();
+                                const cx = rect.left + rect.width / 2;
+                                const cy = rect.top + rect.height / 2;
+                                const distance = Math.hypot(mouseX - cx, mouseY - cy);
+
+                                if (distance < 220) {
+                                    tile.style.setProperty("--px", `${((mouseX - rect.left) / rect.width) * 100}%`);
+                                    tile.style.setProperty("--py", `${((mouseY - rect.top) / rect.height) * 100}%`);
+                                    tile.classList.add("proximity");
+                                } else {
+                                    tile.classList.remove("proximity");
+                                }
+                            });
+                            proximityRafId = null;
+                        });
+                    }
+                }, { passive: true });
 
                 tiles.forEach(tile => {
                     tile.addEventListener("mousemove", e => {
-                        const rect = tile.getBoundingClientRect();
-                        tile.style.setProperty("--rx", `${((e.clientX - rect.left) / rect.width) * 100}%`);
-                        tile.style.setProperty("--ry", `${((e.clientY - rect.top) / rect.height) * 100}%`);
-                    });
+                        requestAnimationFrame(() => {
+                            const rect = tile.getBoundingClientRect();
+                            tile.style.setProperty("--rx", `${((e.clientX - rect.left) / rect.width) * 100}%`);
+                            tile.style.setProperty("--ry", `${((e.clientY - rect.top) / rect.height) * 100}%`);
+                        });
+                    }, { passive: true });
                 });
             }
 
@@ -1189,6 +1325,7 @@
             function closeModal() {
                 modal.classList.remove("show");
                 modal.classList.add("closing");
+                modal.setAttribute("aria-hidden", "true");
                 setTimeout(() => {
                     modal.style.display = "none";
                     modal.classList.remove("closing");
@@ -1196,7 +1333,7 @@
             }
 
             document.querySelectorAll(".event-tile").forEach(card => {
-                card.addEventListener("click", async () => {
+                const openEventModal = async () => {
                     const eventKey = card.dataset.event;
                     try {
                         const res = await fetch(`events/${eventKey}.json`);
@@ -1224,11 +1361,28 @@
                     void modal.offsetWidth; // Trigger reflow
                     modal.classList.remove("closing");
                     modal.classList.add("show");
+                    modal.removeAttribute("aria-hidden");
+                };
+
+                // Click and Accessibility Keyboard enter/space binding
+                card.addEventListener("click", openEventModal);
+                card.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        openEventModal();
+                    }
                 });
             });
 
             modal.addEventListener("click", (e) => {
                 if (!e.target.closest(".modal-card")) {
+                    closeModal();
+                }
+            });
+
+            // Make sure Escape key closes modal natively
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && modal.classList.contains("show")) {
                     closeModal();
                 }
             });
@@ -1243,6 +1397,9 @@
 
                     if (sponsors && sponsors.length > 0) {
                         const allSponsors = [...sponsors, ...sponsors];
+
+                        // Doc fragment for performance
+                        const fragment = document.createDocumentFragment();
                         allSponsors.forEach(file => {
                             const card = document.createElement("div");
                             card.className = "sponsor-card";
@@ -1251,54 +1408,74 @@
                             img.alt = "Sponsor Logo";
                             img.loading = "lazy";
                             card.appendChild(img);
-                            track.appendChild(card);
+                            fragment.appendChild(card);
                         });
+                        track.appendChild(fragment);
                     }
                 } catch (e) {
                     console.warn("Failed to load sponsors data", e);
                 }
             }
-            loadSponsors();
+            // Use requestIdleCallback for non-critical resources if available
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(loadSponsors, { timeout: 2000 });
+            } else {
+                setTimeout(loadSponsors, 500);
+            }
 
             // 5. Canvas Particles (Maritime glowing dots)
             const canvas = document.getElementById("particleCanvas");
-            const ctx = canvas.getContext("2d");
+            const ctx = canvas.getContext("2d", { alpha: true }); // optimize context
 
             let particles = [];
             const particleCount = 60; // Subtle density
+            let canvasBox;
 
             function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+                canvasBox = { w: window.innerWidth, h: window.innerHeight };
+                canvas.width = canvasBox.w;
+                canvas.height = canvasBox.h;
             }
-            window.addEventListener("resize", resizeCanvas);
+
+            // Throttle resize
+            let resizeRaf = null;
+            window.addEventListener("resize", () => {
+                if (!resizeRaf) {
+                    resizeRaf = requestAnimationFrame(() => {
+                        resizeCanvas();
+                        resizeRaf = null;
+                    });
+                }
+            }, { passive: true });
+
             resizeCanvas();
 
             class Particle {
                 constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
+                    this.x = Math.random() * canvasBox.w;
+                    this.y = Math.random() * canvasBox.h;
                     this.vx = (Math.random() - 0.5) * 0.3; // Very slow drift
                     this.vy = (Math.random() - 0.5) * 0.3 - 0.2; // Slight upward bias
                     this.radius = Math.random() * 2 + 0.5;
                     this.alpha = Math.random() * 0.5 + 0.1;
+                    this.baseColorRgb = "125, 201, 238"; // Avoid recreating string each frame
                 }
 
                 update() {
                     this.x += this.vx;
                     this.y += this.vy;
 
-                    // Wrap around edges
-                    if (this.y < 0) this.y = canvas.height;
-                    if (this.y > canvas.height) this.y = 0;
-                    if (this.x < 0) this.x = canvas.width;
-                    if (this.x > canvas.width) this.x = 0;
+                    // Wrap around edges dynamically using cached width/height
+                    if (this.y < 0) this.y = canvasBox.h;
+                    if (this.y > canvasBox.h) this.y = 0;
+                    if (this.x < 0) this.x = canvasBox.w;
+                    if (this.x > canvasBox.w) this.x = 0;
                 }
 
                 draw() {
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(125, 201, 238, ${this.alpha})`; // Maritime cyan/blue tint
+                    ctx.fillStyle = `rgba(${this.baseColorRgb}, ${this.alpha})`; // Maritime cyan/blue tint
                     ctx.shadowBlur = 8;
                     ctx.shadowColor = "rgba(31, 182, 255, 0.6)";
                     ctx.fill();
@@ -1310,25 +1487,32 @@
             }
 
             function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.clearRect(0, 0, canvasBox.w, canvasBox.h);
                 particles.forEach(p => {
                     p.update();
                     p.draw();
                 });
                 requestAnimationFrame(animateParticles);
             }
-            animateParticles();
+            // Delay start slightly to let priority components load
+            requestAnimationFrame(animateParticles);
 
             // 6. Sticky Register Button visibility
             const stickyBtn = document.getElementById("stickyRegister");
-            // Show button after scrolling past 600px
+            let scrollRaf = null;
+
             window.addEventListener("scroll", () => {
-                if (window.scrollY > 600) {
-                    stickyBtn.classList.add("visible");
-                } else {
-                    stickyBtn.classList.remove("visible");
+                if (!scrollRaf) {
+                    scrollRaf = requestAnimationFrame(() => {
+                        if (window.scrollY > 600) {
+                            stickyBtn.classList.add("visible");
+                        } else {
+                            stickyBtn.classList.remove("visible");
+                        }
+                        scrollRaf = null;
+                    });
                 }
-            });
+            }, { passive: true });
 
         });
     </script>
